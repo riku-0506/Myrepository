@@ -1,0 +1,361 @@
+.chihaya {
+    -fx-font-family: "ChihayaGothic";
+}
+
+.chihaya .text-field {
+    -fx-font-size: 36px; /* Spinner本体と一致させる */
+    -fx-text-fill: black;
+    -fx-background-color: transparent;
+    -fx-alignment: center;
+}
+
+.button-bar {
+    -fx-padding: 0;
+    -fx-background-color: transparent;
+    -fx-opacity: 0;
+    -fx-max-height: 0;
+    -fx-min-height: 0;
+    -fx-pref-height: 0;
+}
+.button{
+    -fx-font-size: 48px;
+}
+
+.button:hover {
+   -fx-font-size: 50px;  /* ホバー時もサイズ固定 */
+    -fx-scale-x: 1;
+    -fx-scale-y: 1;
+}
+
+/*--メニュー画面*/
+#customize:hover,#reprayment:hover,#Illustrated:hover,#guild:hover{
+	-fx-font-size: 50px; /* ホバー時もサイズ固定 */
+	    -fx-scale-x: 1;
+	    -fx-scale-y: 1;
+}
+
+#deployment{
+	-fx-font-size: 96px;  /*ホバー時もサイズ固定 */
+	    -fx-scale-x: 1;
+	    -fx-scale-y: 1;
+}
+
+#deployment:hover{
+	-fx-font-size: 96px;  /*ホバー時もサイズ固定 */
+	    -fx-scale-x: 1;
+	    -fx-scale-y: 1;
+}
+/*メニュー画面--*/
+
+
+/*--スタート画面*/
+#yes:hover,#no:hover {
+    -fx-font-size: 50px; /* ホバー時もサイズ固定 */
+    -fx-scale-x: 1;
+    -fx-scale-y: 1;
+}
+/*スタート画面--*/
+
+
+/*--戦闘画面*/
+#magicBtn1, #magicBtn2, #magicBtn3, #magicBtn4, #magicBtn5, #magicBtn6{
+	-fx-font-size: 12px;
+}
+
+#magicBtn1:hover, #magicBtn2:hover, #magicBtn3:hover, #magicBtn4:hover, #magicBtn5:hover, #magicBtn6:hover{
+	-fx-font-size: 12px;
+}
+.enemy_name{
+	-fx-stroke-width:2px;
+	-fx-stroke-color: rgb(255, 128, 64);
+	-fx-text-fill: black;
+}
+
+.enemy_NameStatus{
+	-fx-background-color: rgba(255,255,255,0.5);
+	-fx-background-radius: 20px;
+}
+
+/*戦闘画面--*/
+
+
+
+
+/*返済画面*/
+#RepayButton:hover {
+    -fx-font-size: 45px; /* ホバー時もサイズ固定 */
+    -fx-scale-x: 1;
+    -fx-scale-y: 1;
+}
+
+#Departure:hover{
+	-fx-font-size: 110px; /* ホバー時もサイズ固定 */
+	    -fx-scale-x: 1;
+	    -fx-scale-y: 1;
+}
+
+#MysetButton{
+	-fx-font-size:18px
+}
+
+#ChoiceMagic1,
+#ChoiceMagic2,
+#ChoiceMagic3,
+#ChoiceMagic4,
+#ChoiceMagic5,
+#ChoiceMagic6 {
+    -fx-font-size: 24px;
+}
+
+
+/*--ステージ選択画面*/
+.map-radio {
+	-fx-font-family: "ChihayaGothic";
+}
+
+.map-radio .radio{
+	-fx-background-color: black;
+
+}
+
+.map-radio:selected .radio{
+    -fx-background-color: white; 
+	-fx-scale-x: 1;
+	-fx-scale-y: 1;
+}
+
+.map-radio:hover .radio{
+	-fx-scale-x: 1;
+	-fx-scale-y: 1;
+}
+
+.map-radio:selected .dot{
+    -fx-background-color: white;    /* 選択時の背景色 */
+}
+
+.map-Decision{
+	-fx-font-family: "ChihayaGothic";
+}
+
+.map-Decision:hover{
+	-fx-font-size: 52px;
+}
+
+.map-Decision:selected{
+	-fx-font-size: 52px;
+}
+/*ステージ選択画面--*/
+
+
+/*--クエスト画面*/
+.QuestButton{
+	-fx-background-color: white;
+}
+
+.QuestButton:hover{
+	-fx-font-size: 45px;
+}
+
+
+.Quest{
+	-fx-font-size: 20px;
+	-fx-font-fill: white;
+}
+
+.Quest:hover{
+	-fx-font-size: 25px;
+}
+.Quest:focused{
+	-fx-font-size: 25px;
+}
+
+.QuestDesctiption:focused{
+	-fx-font-size: 35px;
+}
+
+/*クエスト画面--*/
+
+
+/*--ギルド画面*/
+.GuildButton:hover{
+	-fx-font-size: 68px;
+}
+
+/*ギルド画面--*/
+
+
+/*--購入画面*/
+.BuyItem{
+	-fx-font-size: 30px;
+}
+.BuyItem:hover{
+	-fx-font-size: 35px;
+}
+
+.BuyMagic{
+	-fx-font-size: 30px;
+}
+.BuyMagic:hover{
+	-fx-font-size: 30px;
+}
+
+.shoptext{
+	-fx-font-size: 36px;
+}
+.shoptext:focused{
+	-fx-font-size: 36px;
+}/*購入画面--*/
+
+
+/*--カスタマイズ画面*/
+
+.Customize_bg .content{
+/*	-fx-background-image: url("images/背景_images/カスタマイズ/紙.png");*/
+/*	-fx-font-weight: bold;*/
+
+}
+
+/*カスタマイズ画面--*/
+
+
+
+/*--インベントリ画面*/
+.Inventory_list .viewport{
+	-fx-background-image: url("images/paper.png");
+	-fx-background-repeat: repeat-y;     /* 縦方向だけ繰り返す */
+	-fx-background-position: top left;   /* 左上から開始 */
+	-fx-background-size: auto;           /* 元画像サイズのまま */
+}
+
+/*インベントリ画面--*/
+
+
+/*--リザルト画面*/
+
+.resultList:focused{
+	-fx-font-size: 35px;
+}
+.resultList:selected{
+	-fx-font-size: 35px;
+}
+
+/*リザルト画面--*/
+
+.customize-magic {
+    -fx-font-size: 24px;
+}
+
+.text-18px{
+	-fx-font-size: 18px;
+}
+
+
+
+
+
+
+/* JavaFX CSS - Leave this comment until you have at least create one rule which uses -fx-Property */
+
+
+#Repayment:hover {
+    -fx-font-size: 45px; /* ホバー時もサイズ固定 */
+    -fx-scale-x: 1;
+    -fx-scale-y: 1;
+}
+
+#Departure:hover{
+	-fx-font-size: 110px; /* ホバー時もサイズ固定 */
+	    -fx-scale-x: 1;
+	    -fx-scale-y: 1;
+}
+
+#MysetButton{
+	-fx-font-size:18px
+}
+
+#ChoiceMagic1,
+#ChoiceMagic2,
+#ChoiceMagic3,
+#ChoiceMagic4,
+#ChoiceMagic5,
+#ChoiceMagic6 {
+    -fx-font-size: 24px;
+}
+
+.customizeName:focused{
+	-fx-font-size: 40px;
+}
+
+.customize-magic {
+    -fx-font-size: 24px;
+}
+
+.text-18px{
+	-fx-font-size: 18px;
+}
+
+/* 図鑑画面 */
+#MonsterCode,
+#MagicCode,
+#AbnormalityCode,
+#MagicCodeDescliption{
+	-fx-font-size: 18px;
+}
+
+#MonsterDescription,
+#MagicDescription,
+#AbnormalityDescription{
+	-fx-font-size: 24px;
+}
+
+/* カスタマイズ画面 */
+#magicNameLabel,
+#magicMpLabel,
+#magicEffectLabel,
+#magicElementLabel,
+#magicStatusLabel,
+#totalMpLabel{
+	-fx-font-size: 36px;
+}
+
+/* 売却画面 */
+#MaterialListVBox .button,
+#ConsumableListVBox .button{
+	-fx-font-size: 18px;
+}
+
+.item_bg .viewport{
+	-fx-background-image: url("images/paper.png");
+	-fx-background-repeat: repeat-y;     /* 縦方向だけ繰り返す */
+	-fx-background-position: top left;   /* 左上から開始 */
+	-fx-background-size: cover;           /* 元画像サイズのまま */
+}
+
+/* DialogPane 背景 */
+.item_dp {
+    -fx-background-image: url("images/paper.png");
+    -fx-background-repeat: no-repeat;
+    -fx-background-position: top left;
+    -fx-background-size: cover;
+    -fx-background-color: transparent;
+}
+
+/* 内部パネルも透明に */
+.item_dp .header-panel,
+.item_dp .content,
+.item_dp .button-bar,
+.item_dp .label,
+.item_dp .region,
+.item_dp .pane {
+    -fx-background-color: transparent;
+}
+
+/* 借金返済画面 */
+.Repayment:hover,
+.RepaymentButton:hover{
+	-fx-font-size:48px;
+}
+
+#magicComboBox1{
+	-fx-background-color: #98fb98;
+}

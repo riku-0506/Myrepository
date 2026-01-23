@@ -1,0 +1,100 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.Group?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.shape.Rectangle?>
+<?import javafx.scene.text.Font?>
+<?import javafx.scene.text.Text?>
+
+<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="720.0" prefWidth="1280.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.RepaymentController">
+
+   <children>
+      
+      <ImageView fitHeight="720.0" fitWidth="1280.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@images/90540392_p0_master1200.jpg" />
+         </image>
+      </ImageView>
+      <ImageView fx:id="characterImage" fitHeight="1004.0" fitWidth="742.0" layoutX="656.0" layoutY="-43.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@images/エリカ.png" />
+         </image>
+      </ImageView>
+      <Group layoutX="109.0" layoutY="35.0">
+         <children>
+            <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#fff8c9" height="139.0" layoutX="3.0" stroke="BLACK" strokeType="INSIDE" styleClass="chihaya" width="557.0" />
+            <Text fx:id="Money" fill="#5466b9" layoutX="3.0" layoutY="95.0" strokeType="OUTSIDE" strokeWidth="0.0" styleClass="chihaya" text="所持金:15000" textAlignment="CENTER" wrappingWidth="553.5999908447266">
+               <font>
+                  <Font name="System Bold" size="64.0" />
+               </font>
+            </Text>
+         </children>
+      </Group>
+      <Rectangle arcHeight="5.0" arcWidth="5.0" fill="DODGERBLUE" height="112.0" layoutX="54.0" layoutY="594.0" stroke="BLACK" strokeType="INSIDE" width="1183.0" />
+      <ImageView fitHeight="96.0" fitWidth="102.0" layoutX="7.0" layoutY="5.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@images/戻る.png" />
+         </image>
+      </ImageView>
+      
+	<!--Backボタン-->
+      <Button fx:id="BackMenu" layoutX="7.0" layoutY="6.0" mnemonicParsing="false" onAction="#handleBack" opacity="0.0" prefHeight="85.0" prefWidth="102.0" textFill="RED">
+         <padding>
+            <Insets bottom="15.0" />
+         </padding>
+         <font>
+            <Font name="System Bold" size="18.0" />
+         </font>
+      </Button>
+      <Text fx:id="BonusItem" layoutX="87.0" layoutY="669.0" strokeType="OUTSIDE" strokeWidth="0.0" styleClass="chihaya" text="次の報酬：一撃強化パック" textAlignment="CENTER" wrappingWidth="1137.3367729187012">
+         <font>
+            <Font size="48.0" />
+         </font>
+      </Text>
+      <AnchorPane layoutX="112.0" layoutY="256.0" style="-fx-background-color: white;">
+         <children>
+            <Text layoutX="164.0" layoutY="222.0" strokeType="OUTSIDE" strokeWidth="0.0" styleClass="chihaya" text="返済する">
+               <font>
+                  <Font size="64.0" />
+               </font>
+            </Text>
+            
+                        <Text fx:id="Repayment" fill="#ff0e0e" layoutY="90.0" strokeType="OUTSIDE" strokeWidth="0.0" style="-fx-font-size: 64px;" styleClass="chihaya" text="借金額:300000" textAlignment="CENTER" wrappingWidth="557.3348083496091">
+               <font>
+                  <Font size="64.0" />
+               </font>
+            </Text>
+            
+            	<!--返済画面移行ボタン-->
+            <Button fx:id="RepaymentButton" onAction="#handleRepayment" opacity="0.0" prefHeight="271.0" prefWidth="557.0" style="-fx-font-size: 72px;" styleClass="chihaya" text="返済する">
+               <font>
+                  <Font size="72.0" />
+               </font>
+               <padding>
+                  <Insets top="150.0" />
+               </padding>
+            </Button>
+         </children>
+      </AnchorPane>
+      <ImageView fitHeight="98.0" fitWidth="111.0" layoutX="1168.0" layoutY="14.0" onMouseClicked="#Help" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@images/help.png" />
+         </image>
+      </ImageView>
+      <Label fx:id="messageLabel" alignment="CENTER" layoutX="695.0" layoutY="413.0" prefHeight="175.0" prefWidth="573.0" style="-fx-background-color: white;" styleClass="chihaya" text="Label" visible="false" wrapText="true">
+         <font>
+            <Font size="36.0" />
+         </font>
+         <padding>
+            <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
+         </padding>
+      </Label>
+      <Button layoutX="707.0" layoutY="123.0" mnemonicParsing="false" onAction="#onTalkButton" opacity="0.0" prefHeight="452.0" prefWidth="564.0" text="Button" />
+   </children>
+</Pane>

@@ -1,0 +1,197 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.RadioButton?>
+<?import javafx.scene.control.ToggleGroup?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.paint.Color?>
+<?import javafx.scene.paint.LinearGradient?>
+<?import javafx.scene.paint.RadialGradient?>
+<?import javafx.scene.paint.Stop?>
+<?import javafx.scene.shape.Rectangle?>
+<?import javafx.scene.text.Font?>
+<?import javafx.scene.text.Text?>
+
+<AnchorPane maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" prefHeight="720.0" prefWidth="1280.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.StageSelectionController">
+   <children>
+      <ImageView fitHeight="720.0" fitWidth="1280.0" layoutX="99.0" layoutY="-30.0" pickOnBounds="true" preserveRatio="true" scaleX="1.5" scaleY="1.5" AnchorPane.leftAnchor="99.0" AnchorPane.topAnchor="-20.0">
+         <image>
+            <Image url="@images/マップ.jpg" />
+         </image>
+      </ImageView>
+      <Rectangle fx:id="Stage1bg" arcHeight="5.0" arcWidth="5.0" height="58.0" layoutX="770.0" layoutY="373.0" stroke="TRANSPARENT" strokeLineCap="ROUND" strokeLineJoin="ROUND" strokeType="INSIDE" width="220.0">
+         <fill>
+            <LinearGradient endX="0.5113636869372744" endY="0.7537878720146238" startX="0.5075757657036637" startY="0.29545455267935095">
+               <stops>
+                  <Stop>
+                     <color>
+                        <Color red="1.0" green="1.0" blue="1.0" opacity="0.20000000298023224" />
+                     </color>
+                  </Stop>
+                  <Stop offset="1.0">
+                     <color>
+                        <Color red="1.0" green="1.0" blue="1.0" opacity="0.8299999833106995" />
+                     </color>
+                  </Stop>
+               </stops>
+            </LinearGradient>
+         </fill>
+      </Rectangle>
+      <Text fill="#fffefe" layoutX="820.0" layoutY="415.0" stroke="#1a7913" strokeType="OUTSIDE" strokeWidth="2.0" styleClass="chihaya" text="始まりの草原">
+         <font>
+            <Font size="30.0" />
+         </font>
+      </Text>
+      <RadioButton fx:id="stage1" layoutX="782.0" layoutY="373.0" mnemonicParsing="false" prefHeight="58.0" prefWidth="203.0" styleClass="map-radio" wrapText="true">
+         <font>
+            <Font size="15.0" />
+         </font>
+         <toggleGroup>
+            <ToggleGroup fx:id="mapGroup" />
+         </toggleGroup>
+      </RadioButton>
+      <Rectangle fx:id="Stage2bg" arcHeight="5.0" arcWidth="5.0" height="58.0" layoutX="920.0" layoutY="219.0" stroke="TRANSPARENT" strokeLineCap="ROUND" strokeLineJoin="ROUND" strokeType="INSIDE" width="320.0">
+         <fill>
+            <LinearGradient endX="0.5113636869372744" endY="0.7537878720146238" startX="0.5075757657036637" startY="0.29545455267935095">
+               <stops>
+                  <Stop>
+                     <color>
+                        <Color red="1.0" green="1.0" blue="1.0" opacity="0.20000000298023224" />
+                     </color>
+                  </Stop>
+                  <Stop offset="1.0">
+                     <color>
+                        <Color red="1.0" green="1.0" blue="1.0" opacity="0.8299999833106995" />
+                     </color>
+                  </Stop>
+               </stops>
+            </LinearGradient>
+         </fill>
+      </Rectangle>
+      <Text fx:id="Stage2Name" fill="#fffefe" layoutX="964.0" layoutY="260.0" strokeType="OUTSIDE" strokeWidth="2.0" styleClass="chihaya" text="海沿いの街・リーベック">
+         <font>
+            <Font size="30.0" />
+         </font>
+         <stroke>
+            <RadialGradient centerX="0.5" centerY="0.8484848412600431" radius="0.5">
+               <stops>
+                  <Stop>
+                     <color>
+                        <Color red="0.07235867530107498" green="0.09926705807447433" blue="0.6105263233184814" />
+                     </color>
+                  </Stop>
+                  <Stop offset="0.006729475100942127">
+                     <color>
+                        <Color red="0.07235867530107498" green="0.09926705807447433" blue="0.6105263233184814" />
+                     </color>
+                  </Stop>
+                  <Stop offset="0.9946164199192462">
+                     <color>
+                        <Color red="0.22750000655651093" green="0.504830539226532" blue="0.9100000262260437" />
+                     </color>
+                  </Stop>
+                  <Stop offset="1.0">
+                     <color>
+                        <Color red="0.22750000655651093" green="0.504830539226532" blue="0.9100000262260437" />
+                     </color>
+                  </Stop>
+               </stops>
+            </RadialGradient>
+         </stroke>
+      </Text>
+      <RadioButton fx:id="stage2" layoutX="932.0" layoutY="219.0" mnemonicParsing="false" prefHeight="58.0" prefWidth="299.0" styleClass="map-radio" textFill="WHITE" toggleGroup="$mapGroup">
+         <font>
+            <Font size="15.0" />
+         </font>
+      </RadioButton>
+      <Rectangle fx:id="Stage3bg" arcHeight="5.0" arcWidth="5.0" height="58.0" layoutX="484.0" layoutY="104.0" stroke="TRANSPARENT" strokeLineCap="ROUND" strokeLineJoin="ROUND" strokeType="INSIDE" width="356.0">
+         <fill>
+            <LinearGradient endX="0.5113636869372744" endY="0.7537878720146238" startX="0.5075757657036637" startY="0.29545455267935095">
+               <stops>
+                  <Stop>
+                     <color>
+                        <Color red="1.0" green="1.0" blue="1.0" opacity="0.20000000298023224" />
+                     </color>
+                  </Stop>
+                  <Stop offset="1.0">
+                     <color>
+                        <Color red="1.0" green="1.0" blue="1.0" opacity="0.8299999833106995" />
+                     </color>
+                  </Stop>
+               </stops>
+            </LinearGradient>
+         </fill>
+      </Rectangle>
+      <Text fx:id="Stage3Name" fill="#fffefe" layoutX="514.0" layoutY="145.0" stroke="#781813" strokeType="OUTSIDE" strokeWidth="2.0" styleClass="chihaya" text="竜の棲む街道・ラインラント">
+         <font>
+            <Font size="30.0" />
+         </font>
+      </Text>
+      <RadioButton fx:id="stage3" layoutX="484.0" layoutY="104.0" mnemonicParsing="false" prefHeight="58.0" prefWidth="351.0" styleClass="map-radio" textFill="WHITE" toggleGroup="$mapGroup">
+         <font>
+            <Font size="15.0" />
+         </font>
+      </RadioButton>
+      <Rectangle fx:id="Stage4bg" arcHeight="5.0" arcWidth="5.0" height="58.0" layoutX="810.0" layoutY="515.0" stroke="TRANSPARENT" strokeLineCap="ROUND" strokeLineJoin="ROUND" strokeType="INSIDE" width="370.0">
+         <fill>
+            <LinearGradient endX="0.5113636869372744" endY="0.7537878720146238" startX="0.5075757657036637" startY="0.29545455267935095">
+               <stops>
+                  <Stop>
+                     <color>
+                        <Color red="1.0" green="1.0" blue="1.0" opacity="0.20000000298023224" />
+                     </color>
+                  </Stop>
+                  <Stop offset="1.0">
+                     <color>
+                        <Color red="1.0" green="1.0" blue="1.0" opacity="0.8299999833106995" />
+                     </color>
+                  </Stop>
+               </stops>
+            </LinearGradient>
+         </fill>
+      </Rectangle>
+      <Text fx:id="Stage4Name" fill="#fffefe" layoutX="846.0" layoutY="556.0" strokeType="OUTSIDE" strokeWidth="2.0" styleClass="chihaya" text="南部解放戦線・大聖堂前">
+         <font>
+            <Font size="30.0" />
+         </font>
+         <stroke>
+            <RadialGradient centerX="0.48672565527721845" centerY="0.6164772799520781" radius="0.5">
+               <stops>
+                  <Stop>
+                     <color>
+                        <Color red="0.29080700874328613" green="0.2947368323802948" blue="0.0589473694562912" />
+                     </color>
+                  </Stop>
+                  <Stop offset="1.0">
+                     <color>
+                        <Color red="0.7368420958518982" green="0.7368420958518982" blue="0.4748538136482239" />
+                     </color>
+                  </Stop>
+               </stops>
+            </RadialGradient>
+         </stroke>
+      </Text>
+      <RadioButton fx:id="stage4" layoutX="820.0" layoutY="515.0" mnemonicParsing="false" prefHeight="58.0" prefWidth="358.0" styleClass="map-radio" textFill="WHITE" toggleGroup="$mapGroup">
+         <font>
+            <Font size="15.0" />
+         </font>
+      </RadioButton>
+      <Button layoutX="125.0" layoutY="561.0" mnemonicParsing="false" onAction="#StageDecision" prefHeight="103.0" prefWidth="203.0" style="-fx-background-color: #a52a2a; -fx-background-radius: 10px;" styleClass="map-Decision" text="決定" textFill="WHITE">
+         <font>
+            <Font size="52.0" />
+         </font>
+      </Button>
+      <ImageView fitHeight="85.0" fitWidth="88.0" layoutX="14.0" layoutY="14.0" onMouseClicked="#Undo" pickOnBounds="true" preserveRatio="true" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="0.0">
+         <image>
+            <Image url="@images/戻る.png" />
+         </image>
+      </ImageView>
+      <ImageView fitHeight="82.0" fitWidth="80.0" layoutX="1186.0" layoutY="14.0" onMouseClicked="#Help" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@images/help.png" />
+         </image>
+      </ImageView>
+   </children>
+</AnchorPane>

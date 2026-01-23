@@ -1,0 +1,485 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.String?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ProgressBar?>
+<?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.control.TextArea?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.RowConstraints?>
+<?import javafx.scene.layout.StackPane?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.paint.Color?>
+<?import javafx.scene.paint.LinearGradient?>
+<?import javafx.scene.paint.Stop?>
+<?import javafx.scene.text.Font?>
+<?import javafx.scene.text.Text?>
+
+<AnchorPane fx:id="rootPane" layoutX="1.0" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" prefHeight="720.0" prefWidth="1280.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.StageController">
+	<children>
+		<ImageView fitHeight="727.0" fitWidth="1281.0" layoutY="0.19999999999999996" pickOnBounds="true" preserveRatio="true" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="0.0">
+			<image>
+				<Image url="@images/背景_images/海/海賊船.jpg" />
+			</image>
+		</ImageView>
+      <ScrollPane fx:id="battleLogScroll" fitToWidth="true" layoutX="635.0" layoutY="7.0" prefHeight="143.0" prefWidth="638.0">
+        <content>
+            <VBox fx:id="battleLogBox" spacing="4.0" style="-fx-background-color: #fff; -fx-text-fill: #000; -fx-font-size: 18px;" styleClass="chihaya" />
+        </content>
+      </ScrollPane>
+      <HBox fx:id="enemyHBox" layoutX="9.0" layoutY="212.0" prefHeight="299.0" prefWidth="1280.0" spacing="20.0">
+         <children>
+            <VBox fx:id="enemyBox1" prefHeight="180.0" prefWidth="119.0">
+               <children>
+                  <HBox fx:id="enemy_NameStatus1" prefHeight="43.0" prefWidth="200.0" styleClass="enemy_NameStatus">
+                     <children>
+                        <Label fx:id="enemy_Name1" maxHeight="-Infinity" minHeight="-Infinity" prefHeight="43.0" text="Wildboa">
+                           <font>
+                              <Font size="25.0" />
+                           </font>
+                           <padding>
+                              <Insets left="10.0" />
+                           </padding>
+                           <styleClass>
+                              <String fx:value="chihaya" />
+                              <String fx:value="enemy_name" />
+                           </styleClass>
+                        </Label>
+                        <Label fx:id="enemy_status1" prefHeight="43.0" styleClass="chihaya">
+                           <font>
+                              <Font size="20.0" />
+                           </font>
+                           <textFill>
+                              <LinearGradient endX="0.34848489183368103" endY="1.0">
+                                 <stops>
+                                    <Stop>
+                                       <color>
+                                          <Color red="0.3439086377620697" blue="1.0" />
+                                       </color>
+                                    </Stop>
+                                    <Stop offset="1.0">
+                                       <color>
+                                          <Color red="0.3886938691139221" green="0.12039999663829803" blue="0.4300000071525574" />
+                                       </color>
+                                    </Stop>
+                                 </stops>
+                              </LinearGradient>
+                           </textFill>
+                        </Label>
+                     </children>
+                  </HBox>
+                  <ProgressBar fx:id="enemy1_HP" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="25.0" prefWidth="215.0" progress="1.0">
+                     <VBox.margin>
+                        <Insets top="10.0" />
+                     </VBox.margin>
+                     <padding>
+                        <Insets left="10.0" />
+                     </padding>
+                  </ProgressBar>
+                  <ImageView fx:id="enemy1" fitHeight="240.0" fitWidth="240.0" onMouseClicked="#onEnemyClicked" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@images/敵_images/クラーケン.png" />
+                     </image>
+                  </ImageView>
+               </children>
+            </VBox>
+            <VBox fx:id="enemyBox2" prefHeight="180.0" prefWidth="139.0">
+               <children>
+                  <HBox fx:id="enemy_NameStatus2" prefHeight="43.0" prefWidth="200.0" styleClass="enemy_NameStatus">
+                     <children>
+                        <Label fx:id="enemy_Name2" maxHeight="-Infinity" minHeight="-Infinity" prefHeight="43.0" text="Wildboa">
+                           <font>
+                              <Font size="25.0" />
+                           </font>
+                           <padding>
+                              <Insets left="10.0" />
+                           </padding>
+                           <styleClass>
+                              <String fx:value="chihaya" />
+                              <String fx:value="enemy_name" />
+                           </styleClass>
+                        </Label>
+                        <Label fx:id="enemy_status2" prefHeight="43.0" styleClass="chihaya">
+                           <font>
+                              <Font size="20.0" />
+                           </font>
+                           <textFill>
+                              <LinearGradient endX="0.34848489183368103" endY="1.0">
+                                 <stops>
+                                    <Stop>
+                                       <color>
+                                          <Color red="0.3439086377620697" blue="1.0" />
+                                       </color>
+                                    </Stop>
+                                    <Stop offset="1.0">
+                                       <color>
+                                          <Color red="0.3886938691139221" green="0.12039999663829803" blue="0.4300000071525574" />
+                                       </color>
+                                    </Stop>
+                                 </stops>
+                              </LinearGradient>
+                           </textFill>
+                        </Label>
+                     </children>
+                  </HBox>
+                  <ProgressBar fx:id="enemy2_HP" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="25.0" prefWidth="215.0" progress="1.0">
+                     <VBox.margin>
+                        <Insets top="10.0" />
+                     </VBox.margin>
+                     <padding>
+                        <Insets left="10.0" />
+                     </padding>
+                  </ProgressBar>
+                  <ImageView fx:id="enemy2" fitHeight="240.0" fitWidth="240.0" onMouseClicked="#onEnemyClicked" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@images/敵_images/クラーケン.png" />
+                     </image>
+                  </ImageView>
+               </children>
+            </VBox>
+            <VBox fx:id="enemyBox3" prefHeight="180.0" prefWidth="163.0">
+               <children>
+                  <HBox fx:id="enemy_NameStatus3" prefHeight="43.0" prefWidth="200.0" styleClass="enemy_NameStatus">
+                     <children>
+                        <Label fx:id="enemy_Name3" maxHeight="-Infinity" minHeight="-Infinity" prefHeight="43.0" text="Wildboa">
+                           <font>
+                              <Font size="25.0" />
+                           </font>
+                           <padding>
+                              <Insets left="10.0" />
+                           </padding>
+                           <styleClass>
+                              <String fx:value="chihaya" />
+                              <String fx:value="enemy_name" />
+                           </styleClass>
+                        </Label>
+                        <Label fx:id="enemy_status3" prefHeight="43.0" styleClass="chihaya">
+                           <font>
+                              <Font size="20.0" />
+                           </font>
+                           <textFill>
+                              <LinearGradient endX="0.34848489183368103" endY="1.0">
+                                 <stops>
+                                    <Stop>
+                                       <color>
+                                          <Color red="0.3439086377620697" blue="1.0" />
+                                       </color>
+                                    </Stop>
+                                    <Stop offset="1.0">
+                                       <color>
+                                          <Color red="0.3886938691139221" green="0.12039999663829803" blue="0.4300000071525574" />
+                                       </color>
+                                    </Stop>
+                                 </stops>
+                              </LinearGradient>
+                           </textFill>
+                        </Label>
+                     </children>
+                  </HBox>
+      				<ProgressBar fx:id="enemy3_HP" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="25.0" prefWidth="215.0" progress="1.0">
+                     <VBox.margin>
+                        <Insets top="10.0" />
+                     </VBox.margin>
+                     <padding>
+                        <Insets left="10.0" />
+                     </padding>
+                  </ProgressBar>
+      				<ImageView fx:id="enemy3" fitHeight="240.0" fitWidth="240.0" onMouseClicked="#onEnemyClicked" pickOnBounds="true" preserveRatio="true">
+      					<image>
+      						<Image url="@images/敵_images/クラーケン.png" />
+      					</image>
+      				</ImageView>
+               </children>
+            </VBox>
+            <VBox fx:id="enemyBox4" prefHeight="180.0" prefWidth="91.0">
+               <children>
+                  <HBox fx:id="enemy_NameStatus4" prefHeight="43.0" prefWidth="200.0" styleClass="enemy_NameStatus">
+                     <children>
+                        <Label fx:id="enemy_Name4" maxHeight="-Infinity" minHeight="-Infinity" prefHeight="43.0" text="Wildboa">
+                           <font>
+                              <Font size="25.0" />
+                           </font>
+                           <padding>
+                              <Insets left="10.0" />
+                           </padding>
+                           <styleClass>
+                              <String fx:value="chihaya" />
+                              <String fx:value="enemy_name" />
+                           </styleClass>
+                        </Label>
+                        <Label fx:id="enemy_status4" prefHeight="43.0" styleClass="chihaya">
+                           <font>
+                              <Font size="20.0" />
+                           </font>
+                           <textFill>
+                              <LinearGradient endX="0.34848489183368103" endY="1.0">
+                                 <stops>
+                                    <Stop>
+                                       <color>
+                                          <Color red="0.3439086377620697" blue="1.0" />
+                                       </color>
+                                    </Stop>
+                                    <Stop offset="1.0">
+                                       <color>
+                                          <Color red="0.3886938691139221" green="0.12039999663829803" blue="0.4300000071525574" />
+                                       </color>
+                                    </Stop>
+                                 </stops>
+                              </LinearGradient>
+                           </textFill>
+                        </Label>
+                     </children>
+                  </HBox>
+      				<ProgressBar fx:id="enemy4_HP" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="25.0" prefWidth="215.0" progress="1.0">
+                     <VBox.margin>
+                        <Insets left="10.0" top="10.0" />
+                     </VBox.margin>
+                  </ProgressBar>
+      				<ImageView fx:id="enemy4" fitHeight="240.0" fitWidth="240.0" onMouseClicked="#onEnemyClicked" pickOnBounds="true" preserveRatio="true">
+      					<image>
+      						<Image url="@images/敵_images/クラーケン.png" />
+      					</image>
+      				</ImageView>
+               </children>
+            </VBox>
+            <VBox fx:id="enemyBox5" prefHeight="180.0" prefWidth="91.0">
+               <children>
+                  <HBox fx:id="enemy_NameStatus5" prefHeight="43.0" prefWidth="200.0" styleClass="enemy_NameStatus">
+                     <children>
+                        <Label fx:id="enemy_Name5" maxHeight="-Infinity" minHeight="-Infinity" prefHeight="43.0" text="Wildboa">
+                           <font>
+                              <Font size="25.0" />
+                           </font>
+                           <padding>
+                              <Insets left="10.0" />
+                           </padding>
+                           <styleClass>
+                              <String fx:value="chihaya" />
+                              <String fx:value="enemy_name" />
+                           </styleClass>
+                        </Label>
+                        <Label fx:id="enemy_status5" prefHeight="43.0" styleClass="chihaya">
+                           <font>
+                              <Font size="20.0" />
+                           </font>
+                           <textFill>
+                              <LinearGradient endX="0.34848489183368103" endY="1.0">
+                                 <stops>
+                                    <Stop>
+                                       <color>
+                                          <Color red="0.3439086377620697" blue="1.0" />
+                                       </color>
+                                    </Stop>
+                                    <Stop offset="1.0">
+                                       <color>
+                                          <Color red="0.3886938691139221" green="0.12039999663829803" blue="0.4300000071525574" />
+                                       </color>
+                                    </Stop>
+                                 </stops>
+                              </LinearGradient>
+                           </textFill>
+                        </Label>
+                     </children>
+                  </HBox>
+      				<ProgressBar fx:id="enemy5_HP" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="25.0" prefWidth="215.0" progress="1.0">
+                     <VBox.margin>
+                        <Insets left="10.0" top="10.0" />
+                     </VBox.margin>
+                  </ProgressBar>
+      				<ImageView fx:id="enemy5" fitHeight="240.0" fitWidth="240.0" onMouseClicked="#onEnemyClicked" pickOnBounds="true" preserveRatio="true">
+      					<image>
+      						<Image url="@images/敵_images/クラーケン.png" />
+      					</image>
+      				</ImageView>
+               </children>
+            </VBox>
+         </children>
+      </HBox>
+		<HBox layoutX="14.0" layoutY="550.0" prefHeight="140.0" prefWidth="1256.0" spacing="10.0">
+			<children>
+            <VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="140.0" prefWidth="120.0" style="-fx-background-color: #fff; -fx-border-color: #000; -fx-border-width: 1px;">
+               <children>
+                  <HBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="46.0" prefWidth="120.0" style="-fx-border-width: 1px; -fx-border-color: #000;">
+                     <children>
+                        <Label maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="46.0" prefWidth="53.0" styleClass="chihaya" text="Lv:">
+                           <font>
+                              <Font size="30.0" />
+                           </font>
+                        </Label>
+                        <Label fx:id="player_Level" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="46.0" prefWidth="64.0" styleClass="chihaya" text="5">
+                           <font>
+                              <Font size="30.0" />
+                           </font>
+                        </Label>
+                     </children>
+                     <VBox.margin>
+                        <Insets />
+                     </VBox.margin>
+                     <padding>
+                        <Insets left="5.0" />
+                     </padding>
+                  </HBox>
+                  <HBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="46.0" prefWidth="120.0" style="-fx-border-color: #000; -fx-border-width: 1px;">
+                     <children>
+                        <Label alignment="CENTER_RIGHT" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="46.0" prefWidth="60.0" styleClass="chihaya" text="HP: ">
+                           <font>
+                              <Font size="30.0" />
+                           </font>
+                           <HBox.margin>
+                              <Insets left="-12.0" />
+                           </HBox.margin>
+                           <padding>
+                              <Insets right="-7.0" />
+                           </padding>
+                        </Label>
+                        <Label fx:id="player_HP" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="46.0" styleClass="chihaya" text="100">
+                           <font>
+                              <Font size="25.0" />
+                           </font>
+                           <HBox.margin>
+                              <Insets left="-10.0" />
+                           </HBox.margin>
+                        </Label>
+                     </children>
+                     <padding>
+                        <Insets left="5.0" />
+                     </padding>
+                  </HBox>
+                  <HBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="46.0" prefWidth="120.0" style="-fx-border-color: #000; -fx-border-width: 1px;">
+                     <children>
+                        <Label alignment="CENTER_RIGHT" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="46.0" styleClass="chihaya" text="MP:">
+                           <font>
+                              <Font size="30.0" />
+                           </font>
+                           <HBox.margin>
+                              <Insets left="-5.0" />
+                           </HBox.margin>
+                        </Label>
+                        <Label fx:id="Player_MP" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="46.0" styleClass="chihaya" text="100">
+                           <font>
+                              <Font size="25.0" />
+                           </font>
+                           <HBox.margin>
+                              <Insets />
+                           </HBox.margin>
+                        </Label>
+                     </children>
+                     <padding>
+                        <Insets left="5.0" />
+                     </padding>
+                  </HBox>
+               </children>
+            </VBox>
+            <VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="140.0" prefWidth="224.0" style="-fx-border-width: 2px; -fx-border-color: #000;">
+               <children>
+                  <TextArea fx:id="state_correction" editable="false" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="85.0" prefWidth="220.0" text="ステータス補正:なし" wrapText="true">
+                     <font>
+                        <Font size="16.0" />
+                     </font>
+                  </TextArea>
+                  <TextArea fx:id="state_effects" editable="false" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="50.0" prefWidth="220.0" text="状態異常:なし" wrapText="true">
+                     <font>
+                        <Font size="16.0" />
+                     </font>
+                  </TextArea>
+               </children>
+            </VBox>
+            <VBox prefHeight="139.0" prefWidth="154.0" spacing="6.0" style="-fx-background-color: #fff;">
+               <padding>
+                  <Insets left="6.0" top="6.0" />
+               </padding>
+               <children>
+                  <Button maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" prefHeight="60.0" prefWidth="140.0">
+                     <font>
+                        <Font size="43.0" />
+                     </font>
+                  </Button>
+                  <Button maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" prefHeight="60.0" prefWidth="140.0">
+                     <font>
+                        <Font size="43.0" />
+                     </font>
+                  </Button>
+               </children>
+            </VBox>
+            <StackPane>
+               <children>
+                  <GridPane fx:id="MagicButtonGrid" prefHeight="139.0" prefWidth="688.0" style="-fx-background-color: #fff; -fx-border-color: #000; -fx-border-width: 1px;">
+                    <columnConstraints>
+                      <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                      <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                    </columnConstraints>
+                    <rowConstraints>
+                      <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                      <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                      <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                    </rowConstraints>
+                     <children>
+                        <Button fx:id="magicBtn1" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" prefHeight="45.0" prefWidth="343.0" text="魔法1" />
+                        <Button fx:id="magicBtn2" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" prefHeight="45.0" prefWidth="343.0" text="魔法2" GridPane.rowIndex="1" />
+                        <Button fx:id="magicBtn3" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" prefHeight="45.0" prefWidth="343.0" text="魔法3" GridPane.rowIndex="2" />
+                        <Button fx:id="magicBtn4" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" prefHeight="45.0" prefWidth="343.0" text="魔法4" GridPane.columnIndex="1" />
+                        <Button fx:id="magicBtn5" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" prefHeight="45.0" prefWidth="343.0" text="魔法5" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+                        <Button fx:id="magicBtn6" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" prefHeight="45.0" prefWidth="343.0" text="魔法6" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+                     </children>
+                  </GridPane>
+                  <ScrollPane fx:id="ItemListPane" fitToHeight="false" fitToWidth="true" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="139.0" prefWidth="688.0" vbarPolicy="ALWAYS">
+                     <content>
+                        <GridPane fx:id="ItemListGrid" maxWidth="-Infinity" minWidth="-Infinity" prefWidth="672.0">
+                          <columnConstraints>
+                            <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                            <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                          </columnConstraints>
+                          <rowConstraints>
+                            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                          </rowConstraints>
+                           <padding>
+                              <Insets bottom="10.0" left="10.0" right="10.0" top="5.0" />
+                           </padding>
+                        </GridPane>
+                     </content>
+                  </ScrollPane>
+               </children>
+            </StackPane>
+			</children>
+		</HBox>
+      <Label layoutX="118.0" layoutY="-10.0" prefHeight="105.0" prefWidth="209.0" styleClass="chihaya" text="wave５/" textFill="WHITE">
+         <font>
+            <Font size="40.0" />
+         </font>
+      </Label>
+      <Label fx:id="WeveNumber" layoutX="266.0" layoutY="6.0" prefHeight="72.0" prefWidth="72.0" styleClass="chihaya" text="１" textFill="WHITE">
+         <font>
+            <Font size="40.0" />
+         </font>
+      </Label>
+      <Text layoutX="390.0" layoutY="670.0" onMouseClicked="#Item" strokeType="OUTSIDE" strokeWidth="0.0" styleClass="chihaya" text="アイテム">
+         <font>
+            <Font size="43.0" />
+         </font>
+      </Text>
+      <Text layoutX="387.0" layoutY="605.0" onMouseClicked="#magic" strokeType="OUTSIDE" strokeWidth="0.0" styleClass="chihaya" text="魔法" textAlignment="CENTER" wrappingWidth="140.0">
+         <font>
+            <Font size="43.0" />
+         </font>
+      </Text>
+      <ImageView fitHeight="72.0" fitWidth="103.0" layoutX="10.0" layoutY="10.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@images/撤退.png" />
+         </image>
+      </ImageView>
+      <Button layoutX="10.0" layoutY="13.0" mnemonicParsing="false" onAction="#withDrawal" opacity="0.0" prefHeight="58.0" prefWidth="103.0">
+         <font>
+            <Font size="24.0" />
+         </font>
+      </Button>
+	</children>
+</AnchorPane>

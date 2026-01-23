@@ -1,0 +1,126 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="720.0" prefWidth="1280.0" style="-fx-background-color: #Fff;" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.InventoryController">
+   <children>
+      <ImageView fitHeight="720.0" fitWidth="1280.0" pickOnBounds="true" preserveRatio="true" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="0.0">
+         <image>
+            <Image url="@images/背景_images/インベントリ/インベントリ背景.jpg" />
+         </image>
+      </ImageView>
+      <ImageView fitHeight="93.0" fitWidth="124.0" layoutX="1.0" layoutY="2.0" onMouseClicked="#Undo" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@images/戻る.png" />
+         </image>
+      </ImageView>
+      <Label layoutX="272.0" layoutY="46.0" styleClass="chihaya" text="消耗品" textFill="WHITE">
+         <font>
+            <Font size="55.0" />
+         </font>
+      </Label>
+      <ScrollPane fx:id="ConsumablePane" layoutX="160.0" layoutY="122.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="570.0" prefWidth="430.0" styleClass="Inventory_list">
+         <content>
+            <AnchorPane maxWidth="-Infinity" minWidth="-Infinity" prefWidth="425.0">
+               <children>
+                  <VBox fx:id="ConsumableList" layoutX="2.0" layoutY="2.0" maxWidth="-Infinity" minWidth="-Infinity" prefWidth="410.0" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="0.0">
+                     <children>
+                        <HBox fx:id="Consumable1" maxHeight="-Infinity" minWidth="-Infinity" prefHeight="64.0" prefWidth="415.0">
+                           <children>
+                              <HBox fx:id="Consumable1_name" alignment="CENTER" prefHeight="64.0" prefWidth="586.0">
+                                 <children>
+                                    <Label fx:id="ConsumableName1" alignment="CENTER" prefHeight="46.0" prefWidth="290.0" styleClass="chihaya" text="ポーション" wrapText="true">
+                                       <font>
+                                          <Font size="30.0" />
+                                       </font>
+                                    </Label>
+                                 </children>
+                                 <padding>
+                                    <Insets left="15.0" />
+                                 </padding>
+                              </HBox>
+                              <HBox fx:id="Consumable1_owned" alignment="CENTER_LEFT" prefHeight="96.0" prefWidth="395.0">
+                                 <children>
+                                    <Label alignment="CENTER" styleClass="chihaya" text="×">
+                                       <font>
+                                          <Font size="40.0" />
+                                       </font>
+                                    </Label>
+                                    <Label fx:id="Consumable1_count" alignment="CENTER" prefHeight="58.0" prefWidth="70.0" styleClass="chihaya" text="10">
+                                       <font>
+                                          <Font size="40.0" />
+                                       </font>
+                                    </Label>
+                                 </children>
+                              </HBox>
+                           </children>
+                        </HBox>
+                     </children>
+                     <padding>
+                        <Insets bottom="15.0" top="15.0" />
+                     </padding>
+                  </VBox>
+               </children>
+            </AnchorPane>
+         </content>
+      </ScrollPane>
+      <Label layoutX="929.0" layoutY="40.0" styleClass="chihaya" text="素材" textFill="WHITE">
+         <font>
+            <Font size="55.0" />
+         </font>
+      </Label>
+      <ScrollPane fx:id="MaterialPane" layoutX="783.0" layoutY="116.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="570.0" prefWidth="430.0" styleClass="Inventory_list">
+         <content>
+            <AnchorPane maxWidth="-Infinity" minWidth="-Infinity" prefWidth="425.0">
+               <children>
+                  <VBox fx:id="MaterialList" layoutX="2.0" layoutY="2.0" maxWidth="-Infinity" minWidth="-Infinity" prefWidth="410.0" spacing="10.0" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="0.0">
+                     <children>
+                        <HBox fx:id="Material1" maxHeight="-Infinity" minWidth="-Infinity" prefHeight="64.0" prefWidth="415.0">
+                           <children>
+                              <HBox fx:id="Material1_name" alignment="CENTER" prefHeight="64.0" prefWidth="580.0">
+                                 <children>
+                                    <Label fx:id="MaterialName1" alignment="CENTER" prefHeight="46.0" prefWidth="282.0" styleClass="chihaya" text="スライムコア" wrapText="true">
+                                       <font>
+                                          <Font size="30.0" />
+                                       </font>
+                                    </Label>
+                                 </children>
+                                 <padding>
+                                    <Insets left="15.0" />
+                                 </padding>
+                              </HBox>
+                              <HBox fx:id="Material1_owned" alignment="CENTER_LEFT" prefHeight="96.0" prefWidth="395.0">
+                                 <children>
+                                    <Label alignment="CENTER" styleClass="chihaya" text="×">
+                                       <font>
+                                          <Font size="40.0" />
+                                       </font>
+                                    </Label>
+                                    <Label fx:id="Material1_count" alignment="CENTER" prefHeight="58.0" prefWidth="70.0" styleClass="chihaya" text="10">
+                                       <font>
+                                          <Font size="40.0" />
+                                       </font>
+                                    </Label>
+                                 </children>
+                              </HBox>
+                           </children>
+                        </HBox>
+                     </children>
+                     <padding>
+                        <Insets bottom="15.0" top="15.0" />
+                     </padding>
+                  </VBox>
+               </children>
+            </AnchorPane>
+         </content>
+      </ScrollPane>
+   </children>
+</AnchorPane>
