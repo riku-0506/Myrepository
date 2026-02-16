@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.DialogPane?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.text.Font?>
+
+<DialogPane fx:id="item_dp" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="404.0" prefWidth="660.0" style="-fx-background-color: #8EB8FF;" styleClass="item_dp" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.BuyItemDialogController">
+   <content>
+      <Pane maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="216.0" prefWidth="610.0" style="-fx-background-color: parent;">
+         <children>
+            <Button fx:id="yes" layoutX="56.0" layoutY="14.0" mnemonicParsing="false" prefHeight="100.0" prefWidth="230.0" styleClass="chihaya" text="はい">
+               <font>
+                  <Font size="36.0" />
+               </font>
+            </Button>
+            <Button fx:id="no" layoutX="358.0" layoutY="14.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" prefHeight="100.0" prefWidth="230.0" styleClass="chihaya" text="いいえ">
+               <font>
+                  <Font size="36.0" />
+               </font>
+            </Button>
+         </children>
+      </Pane>
+   </content>
+   <header>
+      <Label fx:id="itemLabel" alignment="CENTER" prefHeight="228.0" prefWidth="610.0" style="-fx-text-fill: black;" styleClass="chihaya" text="ポーションをXX個購入しますか？" textFill="WHITE" wrapText="true">
+         <font>
+            <Font size="47.0" />
+         </font>
+         <padding>
+            <Insets left="15.0" right="15.0" />
+         </padding>
+      </Label>
+   </header>
+   <graphic>
+      <ImageView fitHeight="150.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@images/紙風背景.png" />
+         </image>
+      </ImageView>
+   </graphic>
+</DialogPane>

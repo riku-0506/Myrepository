@@ -1,0 +1,9 @@
+{
+  "enemyId": 11,
+  "name": "orge",
+
+  "skills": [
+    {"id": 101,"name": "通常攻撃","weight": 60},
+    {"id": 112,"name": "こん棒振り回し","weight": 40}
+  ]
+}

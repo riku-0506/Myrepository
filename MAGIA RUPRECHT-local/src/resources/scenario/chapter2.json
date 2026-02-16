@@ -1,0 +1,223 @@
+{
+  "title": "はじまりの物語",
+  "scenes": [
+    {
+      "dialogues": [
+        {
+          "speaker": "霊夢",
+          "text": "夜は冷えるわね。視界も最悪だし。",
+          "features": {
+          "bgm": {
+              "file": "【東方妖々夢】～ 人形裁判　～ 人の形弄びし少女 ～　.mp3",
+              "fadeIn": 0.0,
+              "volume": 0.6,
+              "loop": true
+            },
+            "background": {
+              "file": "magic_forest.png",
+              "fadeIn": 1.0,
+              "transitionType": "fade"
+            },
+            "characters": [
+              {
+                "name": "霊夢",
+                "image": "Reimu1.png",
+                "position": "left",
+                "facing": "right",
+                "fadeIn": true
+              }
+            ]
+          }
+        },
+        {
+          "speaker": "アリス",
+          "text": "冷えるのは、あなたの春度が足りないからじゃなくて？",
+          "features": {
+            "characters": [
+              {
+                "name": "アリス",
+                "image": "Alice0.png",
+                "position": "right",
+                "facing": "left",
+                "fadeIn": true
+              }
+            ]
+          }
+        },
+        {
+          "speaker": "霊夢",
+          "text": "いや、足りないかも知れないけど。",
+          "features": {
+            "characters": [
+              {
+                "name": "霊夢",
+                "image": "Reimu2.png",
+                "position": "left",
+                "facing": "right"
+              }
+            ]
+          }
+        },
+        {
+          "speaker": "霊夢",
+          "text": "して、貴女はどちらさまで？",
+          "features": {
+            "characters": [
+              {
+                "name": "霊夢",
+                "image": "Reimu0.png",
+                "position": "left",
+                "facing": "right"
+              }
+            ]
+          }
+        },
+        {
+          "features": {
+            "bgm": {
+              "file": "【東方永夜抄】恋色マスタースパーク【原曲】.mp3",
+              "fadeIn": 0.0,
+              "volume": 0.6,
+              "loop": true
+            },
+            "skipText": true
+          }
+        },
+        {
+          "speaker": "魔理沙",
+          "text": "それは私から説明させてもらうぜ",
+          "features": {
+            "characters": [
+              {
+                "name": "魔理沙",
+                "image": "Marisa0.png",
+                "position": "center",
+                "facing": "right"
+              }
+            ]
+          }
+        },
+        {
+          "speaker": "霊夢",
+          "text": "うわ、騒がしいのがきた",
+          "features": {
+            "characters": [
+              {
+                "name": "霊夢",
+                "image": "Reimu3.png",
+                "position": "left",
+                "facing": "right"
+              }
+            ]
+          }
+        }
+      ]
+    }
+  ]
+}
+
+
+
+
+
+
+
+
+
+
+/*
+
+{
+  "title": "はじまりの物語",
+  "scenes": [
+    {
+      "background": "magic_forest.png",
+      "bgm": "【東方妖々夢】～ 人形裁判　～ 人の形弄びし少女 ～　.mp3",
+      "characters": [
+        { "name": "霊夢", "image": "Reimu.png", "position": "left", "facing": "right" },
+        { "name": "アリス", "image": "Alice.png", "position": "right", "facing": "left" }
+      ],
+      "dialogues": [
+        { "speaker": "霊夢", "text": "夜は冷えるわね。視界も最悪だし。" },
+        { "speaker": "アリス", "text": "冷えるのは、あなたの春度が足りないからじゃなくて？" },
+        { "speaker": "霊夢", "text": "いや、足りないかも知れないけど。" },
+        { "speaker": "アリス", "text": "しばらくぶりね。" },
+        { "speaker": "霊夢", "text": "さっき遭ったばかりだってば。" },
+        { "speaker": "アリス", "text": "いや、そういう意味じゃなくて。" },
+        { "speaker": "霊夢", "text": "しばらく巨人？" },
+        { "speaker": "アリス", "text": "私のこと覚えてないの？　まぁ、どうでもいいけど。" },
+        { "speaker": "霊夢", "text": "それはともかく、春度って何？" },
+        { "speaker": "アリス", "text": "どれだけ、あなたの頭が春なのかの度合いよ。" },
+        { "speaker": "霊夢", "text": "あんまり、高くても嫌だなぁ。でも、どうしてこんなに冬が長くなったのよ？" },
+        { "speaker": "アリス", "text": "春度を集めてる奴が居るからよ。" },
+        { "speaker": "霊夢", "text": "あんたは関係無いわけ？" },
+        { "speaker": "アリス", "text": "あるわけ無いわ。" },
+        { "speaker": "霊夢", "text": "じゃ。" },
+        { "speaker": "アリス", "text": "ちょっと！　折角、旧友と出あったと言うのに、手土産はあんたの命だけかい？" },
+        { "speaker": "霊夢", "text": "誰があんたみたいな七色魔法莫迦と旧友なのよ。" },
+        { "speaker": "アリス", "text": "所詮、巫女は二色。その力は私の二割八分六厘にも満たない。" }
+      ]
+    }
+  ]
+}
+
+
+{
+  "title": "はじまりの物語",
+  "scenes": [
+    {
+    初期状態（呼び出された際の最初に出す場面について）
+    背景・BGMは最初からあるのが好ましいが、立ち絵は会話が始まる・ナレーションが終わるなどしてから出した方が良いため、立ち絵が初めから出ているかの指示もあるとよい
+    
+      "background": "magic_forest.png",
+      "bgm": "【東方妖々夢】～ 人形裁判　～ 人の形弄びし少女 ～　.mp3",
+      "characters": [（登場キャラクターについてはもうここで指定しなくてもいいかもしれない。各キャラクターのポジション・向きは一番最初に登場したキャラを基準に自動で割り振られることを想定）
+        { "name": "霊夢", "image": "Reimu.png", "position": "left", "facing": "right" },
+        { "name": "アリス", "image": "Alice.png", "position": "right", "facing": "left" }
+        { "name": "魔理沙", "image": "Marisa.png", "position": "right", "facing": "left" }
+      ],
+      "dialogues": [
+        { "speaker": "霊夢",
+        立ち絵No:1（表情差分などを含めた立ち絵をidもしくはNoで管理し指定）,
+        ポジション：left（左に指定したので左側に立ち絵が指定される）,
+        エフェクト：（この会話に対してつける各種拡張機能を指定する）
+        フレームイン（透明度と画像移動を使って登場させる機能。この際、ポジションに左が指定されているのでそれに合わせて移動の向きと位置が変化する）
+         "text": "夜は冷えるわね。視界も最悪だし。" },
+         
+        { "speaker": "アリス",
+        立ち絵No:1, 
+        エフェクト：フレームイン（speakerが前回の人物と違うので、ポジションを前回の人物とは別の場所に出す今回は右。現在の話者が話している間、前回話者の立ち絵はその位置で暗く表示される。つまり同時期霊夢の立ち絵が左側で暗く表示される）,
+        "text": "冷えるのは、あなたの春度が足りないからじゃなくて？" },
+        
+        { "speaker": "霊夢",
+        立ち絵No:,
+        ポジション:,
+        エフェクト：汗,（立ち絵は前回と同じものを使う場合省略できる。ポジションも上記と同じく特別指示しないのでなし（今回の場合だと前回の話者であるアリスの逆、つまり元の位置である左）
+        "text": "いや、足りないかも知れないけど。" },
+        { "speaker": "霊夢",
+        立ち絵No:3,
+        ポジション:,（今回の話者は前回の話者、つまり霊夢と同じ。なのでポジションは左）
+        エフェクト：はてな,
+        "text": "して、貴女はどちらさまで？" },
+        
+        {"bgm":"恋色マスタースパーク",
+        前の曲の終わり方：フェードアウト,(前のbgmに対する指示）
+        この曲の始まり方：（何も指示なりなのでそのまま流す）
+        次のspeakerに移行するタイミング:（何もないので再生と同時に）},
+        
+        { "speaker": "魔理沙",
+        立ち絵No:1,
+        ポジション:center,only,（ポジションの指示と、他の立ち絵を消して魔理沙のみを表示する指示）
+        エフェクト：シルエット,
+        "text": "それは私から説明させてもらうぜ" },
+        
+        { "speaker": "霊夢",
+        立ち絵No:1,
+        ポジション:left,only,
+        エフェクト：,
+        "text": "うわ、騒がしいのがきた" }
+      ]
+    }
+  ]
+}
+*/

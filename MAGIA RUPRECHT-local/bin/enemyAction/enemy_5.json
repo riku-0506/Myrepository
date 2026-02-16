@@ -1,0 +1,9 @@
+{
+  "enemyId": 5,
+  "name": "cyclops",
+
+  "skills": [
+    {"id": 101,"name": "通常攻撃","weight": 60},
+    {"id": 106,"name": "冷たい一撃","weight": 40}
+  ]
+}

@@ -1,0 +1,9 @@
+{
+  "enemyId": 10,
+  "name": "kraken",
+
+  "skills": [
+    {"id": 101,"name": "通常攻撃","weight": 60},
+    {"id": 111,"name": "コキュートス","weight": 40}
+  ]
+}

@@ -1,0 +1,9 @@
+{
+  "enemyId": 21,
+  "name": "Archdemon",
+
+  "skills": [
+    {"id": 101,"name": "通常攻撃","weight": 60},
+    {"id": 122,"name": "絶望の魔眼","weight": 30}
+  ]
+}

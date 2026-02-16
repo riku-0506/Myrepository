@@ -1,0 +1,9 @@
+{
+  "enemyId": 3,
+  "name": "wildboa",
+
+  "skills": [
+    {"id": 101,"name": "通常攻撃","weight": 60},
+    {"id": 104,"name": "突進","weight": 40}
+  ]
+}

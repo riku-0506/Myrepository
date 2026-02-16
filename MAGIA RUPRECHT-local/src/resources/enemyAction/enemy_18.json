@@ -1,0 +1,9 @@
+{
+  "enemyId": 18,
+  "name": "barghest",
+
+  "skills": [
+    {"id": 101,"name": "通常攻撃","weight": 60},
+    {"id": 119,"name": "黒焔","weight": 40}
+  ]
+}

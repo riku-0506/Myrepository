@@ -1,0 +1,10 @@
+{
+  "enemyId": 12,
+  "name": "worwolf",
+
+  "skills": [
+    {"id": 101,"name": "通常攻撃","weight": 60},
+    {"id": 113,"name": "宵闇の一爪","weight": 40},
+    {"id": 124,"name": "暗夜襲来","weight":0}
+  ]
+}

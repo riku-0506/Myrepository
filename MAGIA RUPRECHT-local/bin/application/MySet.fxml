@@ -1,0 +1,246 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ChoiceBox?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.layout.RowConstraints?>
+<?import javafx.scene.text.Font?>
+<?import javafx.scene.text.Text?>
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="720.0" prefWidth="1280.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.MySetController">
+   <children>
+      <ImageView fitHeight="799.0" fitWidth="1280.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@images/90540392_p0_master1200.jpg" />
+         </image>
+      </ImageView>
+      <ImageView fitHeight="284.0" fitWidth="764.0" layoutX="505.0" layoutY="540.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@images/pen.png" />
+         </image>
+      </ImageView>
+      <ImageView fitHeight="92.0" fitWidth="130.0" layoutX="21.0" layoutY="15.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@images/戻る.png" />
+         </image>
+      </ImageView>
+      <Pane layoutX="152.0" layoutY="17.0" prefHeight="86.0" prefWidth="371.0" style="-fx-background-color: orange;">
+         <children>
+            <Text fill="WHITE" layoutX="35.0" layoutY="58.0" strokeType="OUTSIDE" strokeWidth="0.0" styleClass="chihaya" text="魔法マイセットを選択">
+               <font>
+                  <Font size="36.0" />
+               </font>
+            </Text>
+         </children>
+      </Pane>
+      <GridPane accessibleRole="BUTTON" layoutX="21.0" layoutY="149.0" prefHeight="564.0" prefWidth="500.0" styleClass="chihaya">
+        <columnConstraints>
+          <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+        </columnConstraints>
+        <rowConstraints>
+          <RowConstraints maxHeight="116.0" minHeight="100.0" prefHeight="109.60000610351562" vgrow="SOMETIMES" />
+          <RowConstraints maxHeight="120.80001831054688" minHeight="84.0" prefHeight="120.80001831054688" vgrow="SOMETIMES" />
+          <RowConstraints maxHeight="107.99998779296877" minHeight="79.19998168945312" prefHeight="106.40001220703127" vgrow="SOMETIMES" />
+          <RowConstraints maxHeight="113.60000000000002" minHeight="79.20001220703125" prefHeight="104.80001220703127" vgrow="SOMETIMES" />
+          <RowConstraints maxHeight="103.20001220703125" minHeight="77.59997558593744" prefHeight="100.79998779296875" vgrow="SOMETIMES" />
+
+              </rowConstraints>
+         <children>
+            <ImageView fitHeight="676.0" fitWidth="520.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@images/本棚(2).png" />
+               </image>
+               <GridPane.margin>
+                  <Insets top="450.0" />
+               </GridPane.margin>
+            </ImageView>
+            <TextField fx:id="SetNameField1" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="78.0" prefWidth="270.0" promptText="セット名を入力してください" style="-fx-background-color: white;" styleClass="chihaya">
+               <font>
+                  <Font size="24.0" />
+               </font>
+               <GridPane.margin>
+                  <Insets left="10.0" />
+               </GridPane.margin>
+            </TextField>
+            <TextField fx:id="SetNameField2" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="78.0" prefWidth="270.0" promptText="セット名を入力してください" style="-fx-background-color: white;" styleClass="chihaya" GridPane.rowIndex="1">
+               <font>
+                  <Font size="24.0" />
+               </font>
+               <GridPane.margin>
+                  <Insets left="10.0" />
+               </GridPane.margin>
+            </TextField>
+            <TextField fx:id="SetNameField3" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="78.0" prefWidth="270.0" promptText="セット名を入力してください" style="-fx-background-color: white;" styleClass="chihaya" GridPane.rowIndex="2">
+               <font>
+                  <Font size="24.0" />
+               </font>
+               <GridPane.margin>
+                  <Insets left="10.0" />
+               </GridPane.margin>
+            </TextField>
+            <TextField fx:id="SetNameField4" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="78.0" prefWidth="270.0" promptText="セット名を入力してください" style="-fx-background-color: white;" styleClass="chihaya" GridPane.rowIndex="3">
+               <font>
+                  <Font size="24.0" />
+               </font>
+               <GridPane.margin>
+                  <Insets left="10.0" />
+               </GridPane.margin>
+            </TextField>
+            <TextField fx:id="SetNameField5" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="78.0" prefWidth="270.0" promptText="セット名を入力してください" style="-fx-background-color: white;" styleClass="chihaya" GridPane.rowIndex="4">
+               <font>
+                  <Font size="24.0" />
+               </font>
+               <GridPane.margin>
+                  <Insets left="10.0" />
+               </GridPane.margin>
+            </TextField>
+            
+                        <Button fx:id="MysetButton1" mnemonicParsing="false" onAction="#handleMysetButton1" prefHeight="52.0" prefWidth="200.0" styleClass="chihaya" text="編集">
+               <opaqueInsets>
+                  <Insets />
+               </opaqueInsets>
+               <GridPane.margin>
+                  <Insets left="290.0" />
+               </GridPane.margin>
+               <font>
+                  <Font size="36.0" />
+               </font>
+            </Button>
+            <Button fx:id="MysetButton2" mnemonicParsing="false" onAction="#handleMysetButton2" prefHeight="46.0" prefWidth="200.0" styleClass="chihaya" text="編集" GridPane.rowIndex="1">
+               <opaqueInsets>
+                  <Insets />
+               </opaqueInsets>
+               <GridPane.margin>
+                  <Insets left="290.0" />
+               </GridPane.margin>
+               <font>
+                  <Font size="36.0" />
+               </font>
+            </Button>
+            <Button fx:id="MysetButton3" mnemonicParsing="false" onAction="#handleMysetButton3" prefHeight="46.0" prefWidth="200.0" styleClass="chihaya" text="編集" GridPane.rowIndex="2">
+               <opaqueInsets>
+                  <Insets />
+               </opaqueInsets>
+               <GridPane.margin>
+                  <Insets left="290.0" />
+               </GridPane.margin>
+               <font>
+                  <Font size="36.0" />
+               </font>
+            </Button>
+            <Button fx:id="MysetButton4" mnemonicParsing="false" onAction="#handleMysetButton4" prefHeight="46.0" prefWidth="200.0" styleClass="chihaya" text="編集" GridPane.rowIndex="3">
+               <opaqueInsets>
+                  <Insets />
+               </opaqueInsets>
+               <GridPane.margin>
+                  <Insets left="290.0" />
+               </GridPane.margin>
+               <font>
+                  <Font size="36.0" />
+               </font>
+            </Button>
+            <Button fx:id="MysetButton5" mnemonicParsing="false" onAction="#handleMysetButton5" prefHeight="46.0" prefWidth="200.0" styleClass="chihaya" text="編集" GridPane.rowIndex="4">
+               <opaqueInsets>
+                  <Insets />
+               </opaqueInsets>
+               <GridPane.margin>
+                  <Insets left="290.0" />
+               </GridPane.margin>
+               <font>
+                  <Font size="36.0" />
+               </font>
+            </Button>
+            </children>
+      </GridPane>
+      <Pane layoutX="559.0" layoutY="574.0" prefHeight="138.0" prefWidth="706.0">
+         <children>
+            <Button fx:id="RegisterButton" layoutX="53.0" layoutY="31.0" mnemonicParsing="false" onAction="#handleRegister" prefHeight="77.0" prefWidth="251.0" styleClass="chihaya" text="更新する">
+               <font>
+                  <Font size="36.0" />
+               </font>
+            </Button>
+            <Button fx:id="EquipButton" layoutX="404.0" layoutY="31.0" mnemonicParsing="false" onAction="#handleEquip" prefHeight="77.0" prefWidth="251.0" styleClass="chihaya" text="装備する">
+               <font>
+                  <Font size="36.0" />
+               </font>
+            </Button>
+         </children>
+      </Pane>
+      <Button fx:id="GoBackButton" layoutX="17.0" layoutY="15.0" mnemonicParsing="false" onAction="#handleGoBack" opacity="0.0" prefHeight="86.0" prefWidth="116.0" text="Button" />
+      <AnchorPane layoutX="535.0" layoutY="17.0" prefHeight="92.0" prefWidth="610.0" style="-fx-background-color: orange;">
+         <children>
+            <Text fill="WHITE" layoutX="29.0" layoutY="60.0" strokeType="OUTSIDE" strokeWidth="0.0" styleClass="chihaya" text="現在の装備：" wrappingWidth="215.0">
+               <font>
+                  <Font size="36.0" />
+               </font>
+            </Text>
+            <Label fx:id="EquippedSetLabel" alignment="TOP_LEFT" layoutX="236.0" layoutY="30.0" prefHeight="54.0" prefWidth="237.0" styleClass="chihaya" text="Label" textFill="WHITE">
+               <font>
+                  <Font size="36.0" />
+               </font>
+            </Label>
+         </children>
+      </AnchorPane>
+      <ImageView fitHeight="420.0" fitWidth="729.0" layoutX="580.0" layoutY="140.0" pickOnBounds="true" preserveRatio="true" scaleX="1.2" scaleY="1.1" x="1.0" y="1.0">
+         <image>
+            <Image url="@images/book.png" />
+         </image>
+      </ImageView>
+      <GridPane layoutX="553.0" layoutY="149.0" prefHeight="409.0" prefWidth="706.0">
+        <columnConstraints>
+          <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+          <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+        </columnConstraints>
+        <rowConstraints>
+          <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+          <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+          <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+        </rowConstraints>
+         <children>
+            <ChoiceBox fx:id="ChoiceMagic1" prefHeight="85.0" prefWidth="251.0" styleClass="chihaya">
+               <GridPane.margin>
+                  <Insets left="50.0" />
+               </GridPane.margin>
+            </ChoiceBox>
+            <ChoiceBox fx:id="ChoiceMagic3" prefHeight="85.0" prefWidth="251.0" styleClass="chihaya" GridPane.rowIndex="2">
+               <GridPane.margin>
+                  <Insets left="50.0" />
+               </GridPane.margin>
+            </ChoiceBox>
+            <ChoiceBox fx:id="ChoiceMagic5" prefHeight="85.0" prefWidth="251.0" styleClass="chihaya" GridPane.columnIndex="1" GridPane.rowIndex="1">
+               <GridPane.margin>
+                  <Insets left="50.0" />
+               </GridPane.margin>
+            </ChoiceBox>
+            <ChoiceBox fx:id="ChoiceMagic2" prefHeight="85.0" prefWidth="251.0" styleClass="chihaya" GridPane.rowIndex="1">
+               <GridPane.margin>
+                  <Insets left="50.0" />
+               </GridPane.margin>
+            </ChoiceBox>
+            <ChoiceBox fx:id="ChoiceMagic4" prefHeight="85.0" prefWidth="251.0" styleClass="chihaya" GridPane.columnIndex="1">
+               <GridPane.margin>
+                  <Insets left="50.0" />
+               </GridPane.margin>
+            </ChoiceBox>
+            <ChoiceBox fx:id="ChoiceMagic6" prefHeight="85.0" prefWidth="251.0" styleClass="chihaya" GridPane.columnIndex="1" GridPane.rowIndex="2">
+               <GridPane.margin>
+                  <Insets left="50.0" />
+               </GridPane.margin>
+            </ChoiceBox>
+         </children>
+      </GridPane>
+      <ImageView fitHeight="100.0" fitWidth="116.0" layoutX="1159.0" layoutY="13.0" onMouseClicked="#Help" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@images/help.png" />
+         </image>
+      </ImageView>
+   </children>
+</AnchorPane>

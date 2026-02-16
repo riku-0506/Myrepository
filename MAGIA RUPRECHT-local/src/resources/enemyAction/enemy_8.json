@@ -1,0 +1,9 @@
+{
+  "enemyId": 2,
+  "name": "ghost-ship-crew",
+
+  "skills": [
+    {"id": 101,"name": "通常攻撃","weight": 60},
+    {"id": 109,"name": "サーベルスラッシュ","weight": 40}
+  ]
+}

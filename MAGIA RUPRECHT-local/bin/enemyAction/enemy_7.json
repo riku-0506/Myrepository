@@ -1,0 +1,9 @@
+{
+  "enemyId": 7,
+  "name": "merman",
+
+  "skills": [
+    {"id": 101,"name": "通常攻撃","weight": 60},
+    {"id": 108,"name": "トライデント","weight": 40}
+  ]
+}

@@ -1,0 +1,9 @@
+{
+  "enemyId": 20,
+  "name": "durahan",
+
+  "skills": [
+    {"id": 101,"name": "通常攻撃","weight": 60},
+    {"id": 121,"name": "帝国流剣術・シュネルシュベールト","weight": 40}
+  ]
+}

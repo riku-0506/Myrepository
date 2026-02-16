@@ -1,0 +1,9 @@
+{
+  "enemyId": 17,
+  "name": "zombies",
+
+  "skills": [
+    {"id": 101,"name": "通常攻撃","weight": 60},
+    {"id": 118,"name": "腐敗噛みつき","weight": 40}
+  ]
+}

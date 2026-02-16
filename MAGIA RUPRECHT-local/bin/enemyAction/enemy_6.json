@@ -1,0 +1,9 @@
+{
+  "enemyId": 6,
+  "name": "mermaid",
+
+  "skills": [
+    {"id": 101,"name": "通常攻撃","weight": 60},
+    {"id": 107,"name": "破滅への誘い","weight": 40}
+  ]
+}

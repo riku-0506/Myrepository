@@ -1,0 +1,9 @@
+{
+  "enemyId": 14,
+  "name": "thunder-bird",
+
+  "skills": [
+    {"id": 101,"name": "通常攻撃","weight": 60},
+    {"id": 115,"name": "サンダーストライク","weight": 40}
+  ]
+}

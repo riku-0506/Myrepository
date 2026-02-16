@@ -1,0 +1,9 @@
+{
+  "enemyId": 19,
+  "name": "oni",
+
+  "skills": [
+    {"id": 101,"name": "通常攻撃","weight": 60},
+    {"id": 120,"name": "無慈悲ナ一撃","weight": 40}
+  ]
+}

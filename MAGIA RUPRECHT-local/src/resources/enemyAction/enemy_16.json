@@ -1,0 +1,9 @@
+{
+  "enemyId": 16,
+  "name": "ghost-soldier",
+
+  "skills": [
+    {"id": 101,"name": "通常攻撃","weight": 60},
+    {"id": 117,"name": "精密射撃","weight": 40}
+  ]
+}

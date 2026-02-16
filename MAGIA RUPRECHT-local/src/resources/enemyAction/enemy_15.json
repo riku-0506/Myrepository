@@ -1,0 +1,9 @@
+{
+  "enemyId": 15,
+  "name": "lessor-dragon",
+
+  "skills": [
+    {"id": 101,"name": "通常攻撃","weight": 60},
+    {"id": 116,"name": "火炎ブレス","weight": 40}
+  ]
+}
