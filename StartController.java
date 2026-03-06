@@ -161,7 +161,7 @@ private void initDatabaseAndStartStory(Stage stage, Scene scene) {
     // ----------------------------
     // ストーリー開始
     // ----------------------------
-    new Story_Sample().show(
+    new Story().show(
         stage,
         scene,
         0,

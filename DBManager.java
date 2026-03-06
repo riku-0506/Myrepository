@@ -33,7 +33,7 @@ public class DBManager {
 
             // ▼ 4. ユーザーデータ保存先
             String userHome = System.getProperty("user.home");
-            File saveDir = new File(userHome, "AppData/Local/.JavaRPG");
+            File saveDir = new File(userHome, "AppData/Local/.MAGIA_LUPRECHT");
             saveDir.mkdirs();
 
             File userDb = new File(saveDir, "game.db");
