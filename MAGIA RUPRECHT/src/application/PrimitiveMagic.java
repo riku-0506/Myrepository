@@ -101,6 +101,14 @@ public class PrimitiveMagic {
         UnifiedBuff buff = new UnifiedBuff(type, modifier, duration, true, isSingleUse, element);
         buffList.add(buff);
     }
+    
+    public void addSpecialInnerBuff(UnifiedBuff.Type type, double modifier,int duration, String element, boolean isSingleUse, boolean isSpecialMagicBuff) {
+		UnifiedBuff buff = new UnifiedBuff(type, modifier, duration,true, isSingleUse, element,isSpecialMagicBuff); // ★ 内部バフフラグ
+		buffList.add(buff);
+	}
+
+
+
 
 
     // ====== Getters ======

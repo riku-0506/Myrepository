@@ -5,7 +5,7 @@ public enum StatusEffect {
     BURN(
         "やけど",
         Element.FIRE,
-        0.1,
+        0,
         -1,
         5,
         StatusCategory.DOT,
@@ -15,7 +15,7 @@ public enum StatusEffect {
     PARALYZE(
         "感電",
         Element.THUNDER,
-        0.1,
+        0,
         2,
         2,
         StatusCategory.DEBUFF,
@@ -25,7 +25,7 @@ public enum StatusEffect {
     FREEZE(
         "凍傷",
         Element.ICE,
-        0.1,
+        0,
         2,
         2,
         StatusCategory.DEBUFF,

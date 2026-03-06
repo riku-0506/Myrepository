@@ -17,7 +17,7 @@ INSERT INTO inventory_items (item_id, owned) VALUES
 -- mycustomize 初期化
 DELETE FROM mycustomize;
 INSERT INTO mycustomize (My_customize,my_magic1,my_magic2,my_magic3,my_magic4,my_magic5,my_magic6,set_name) VALUES
-(1,1,2,3,0,0,0,'初期装備');
+(1,1,2,3,null,null,null,'初期装備');
 
 -- player_magic 初期化
 DELETE FROM player_magic;
@@ -29,6 +29,7 @@ DELETE FROM quest_status;
 
 -- game_state 初期化
 UPDATE game_state SET story_finished = 0 WHERE id = 1;
+UPDATE game_state SET stageEXflag = 0 WHERE id = 1;
 
 
 -- repayment 初期化

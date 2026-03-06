@@ -61,6 +61,7 @@ public class ItemExecutor {
                     success = true;
                 }
 
+                
                 case FULL_RECOVERY -> {
                     target.setHPToMax();
                     target.setMPToMax();
@@ -68,7 +69,9 @@ public class ItemExecutor {
                     success = true;
                 }
 
+                
                 case STATUS_RECOVERY -> {
+                	String StatusName = null;
                     switch (item.getId()) {
                         case 9  -> target.getStatusTurns().remove(StatusEffect.BURN);
                         case 10 -> target.getStatusTurns().remove(StatusEffect.PARALYZE);
@@ -76,12 +79,18 @@ public class ItemExecutor {
                         case 12 -> target.getStatusTurns().remove(StatusEffect.SLEEP);
                         case 13 -> target.getStatusTurns().remove(StatusEffect.POISON);
                     }
-
-                    user.log("「" + item.getName() + "」で " + target.getName() + " の状態異常を解除！");
-                    success = true;
+                    
+                    switch (item.getId()) {
+                    case 9  -> StatusName = "やけど";
+                    case 10 -> StatusName = "感電";
+                    case 11 -> StatusName = "凍傷";
+                    case 12 -> StatusName = "睡眠";
+                    case 13 -> StatusName = "毒";
                 }
 
-
+                    user.log("「" + item.getName() + "」で " + target.getName() + " の" + StatusName + "を解除！");
+                    success = true;
+                }
 
 
                 case BUFF -> {
@@ -92,13 +101,21 @@ public class ItemExecutor {
                         case 17 -> new UnifiedBuff(UnifiedBuff.Type.POWER, 1.5, 1, true, true, null);
                         default -> null;
                     };
+                    String description = switch (item.getId()) {
+                    case 14 -> "の攻撃力が上がった！";
+                    case 15 -> "の防御力が上がった";
+                    case 16 -> "は状態異常にかかりにくくなった！";
+                    case 17 -> "の次に与える魔法ダメージが上がっている！";
+                    default -> null;
+                };
                     if (buff != null) {
                         target.applyBuff(buff);
-                        //user.log("「" + item.getName() + "」で " + target.getName() + " に「" + buff.getLabel() + "」を付与！");
+                        user.log("「" + item.getName() + "」でループ" + description);
                         success = true;
                     }
                 }
 
+                
                 case DEBUFF -> {
                     UnifiedBuff debuff = switch (item.getId()) {
                         case 22 -> new UnifiedBuff(UnifiedBuff.Type.ATTACK, 0.85, 3, false, false, null);
@@ -110,26 +127,46 @@ public class ItemExecutor {
                         case 28 -> new UnifiedBuff(UnifiedBuff.Type.STATUS_CHANCE_UP, 1.1, 3, true, false, null);
                         default -> null;
                     };
+                    String description = switch(item.getId()) {
+	                    case 22 -> "の攻撃力を低下させた！";
+	                    case 23 -> "の防御力を低下させた！";
+	                    case 24 -> "の火耐性を低下させた！";
+	                    case 25 -> "の雷耐性を低下させた！";
+	                    case 26 -> "の氷耐性を低下させた！";
+	                    case 27 -> "の聖耐性を低下させた！";
+	                    case 28 -> "は少し状態異常にかかりやすくなった！";
+	                    default -> null;
+                    };
                     if (debuff != null) {
                         target.applyBuff(debuff);
-                        //user.log("「" + item.getName() + "」で " + target.getName() + " に「" + debuff.getLabel() + "」を付与！");
+                        user.log("「" + item.getName() + "」で " + target.getName() + description);
                         success = true;
                     }
                 }
 
                 case STATUS_INFLICT -> {
-                    StatusEffect status = switch (item.getId()) {
-                        case 29 -> StatusEffect.BURN;
-                        case 30 -> StatusEffect.PARALYZE;
-                        case 31 -> StatusEffect.FREEZE;
-                        case 32 -> StatusEffect.SLEEP;
-                        case 33 -> StatusEffect.POISON;
-                        default -> null;
+                	int duration = 0;
+                    StatusEffect status = null;
+                    switch (item.getId()) {
+                        case 29: status = StatusEffect.BURN;
+                        		 duration = 5;
+                        		 break;
+                        case 30: status = StatusEffect.PARALYZE;
+			               		 duration = 5;
+			               		 break;
+                        case 31: status = StatusEffect.FREEZE;
+			               		 duration = 5;
+			               		 break;
+                        case 32: status = StatusEffect.SLEEP;
+			               		 duration = 1;
+			               		 break;
+                        case 33: status = StatusEffect.POISON;
+			               		 duration = 5;
+			               		 break;
                     };
                     if (status != null) {
-                        target.applyStatusEffect(status);
+                        target.setStatusEffect(status,duration);
                         user.log("「" + item.getName() + "」で " + target.getName() + " に状態異常「" + status.getLabel() + "」を付与！");
-//                        Stage1Controller.getInstance().updateEnemyStatusUI(target, target.getDisplaySlotId()); // ✅ 追加！
                         success = true;
                     }
                 }
@@ -161,16 +198,16 @@ public class ItemExecutor {
                 }
 
                 case MAGIC_CAST -> {
-                    String magicName = switch (item.getId()) {
-                        case 18 -> "バーサク";
-                        case 19 -> "フォトレス";
-                        case 20 -> "ケイオスフィルド";
-                        case 21 -> "サバイバー";
+                    PrimitiveMagic magic = switch (item.getId()) {
+                        case 18 -> PrimitiveMagicDAO.getById(35);
+                        case 19 -> PrimitiveMagicDAO.getById(36);
+                        case 20 -> PrimitiveMagicDAO.getById(37);
+                        case 21 -> PrimitiveMagicDAO.getById(38);
                         default -> null;
                     };
-                    if (magicName != null) {
-                        MagicExecutor.castMagic(user, magicName);
-                        user.log("「" + item.getName() + "」で魔法「" + magicName + "」を発動！");
+                    if (magic != null) {
+                        MagicExecutor.castMagic(user, magic);
+                        user.log("「" + item.getName() + "」で魔法「" + magic.getName() + "」を発動！");
                         success = true;
                     }
                 }

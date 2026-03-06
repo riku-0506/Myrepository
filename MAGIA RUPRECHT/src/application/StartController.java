@@ -7,7 +7,6 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.sql.Connection;
-import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ResourceBundle;
 
@@ -27,12 +26,12 @@ public class StartController implements Initializable {
 
     @FXML
     private Button NewStart;
-
-    @FXML
-    private Button StartContinueButton;
-    
-    @FXML
+	
+	@FXML
     private Text continueText;
+	
+	@FXML
+    private Button StartContinueButton;
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
@@ -46,8 +45,8 @@ public class StartController implements Initializable {
             // ----------------------------
             // つづきから制御
             // ----------------------------
-//            StartContinueButton.setDisable(!hasSave);
-//            StartContinueButton.setOpacity(hasSave ? 1.0 : 0.0);
+            StartContinueButton.setOpacity(0);
+            StartContinueButton.setDisable(!hasSave);
 
             continueText.setOpacity(hasSave ? 1.0 : 0.3);
 
@@ -68,10 +67,7 @@ public class StartController implements Initializable {
         });
     }
 
-
-    // ----------------------------------
     // カーソル画像読み込み
-    // ----------------------------------
     private ImageCursor loadCursor(String path) {
         URL url = getClass().getResource(path);
         if (url == null) {
@@ -82,143 +78,117 @@ public class StartController implements Initializable {
         return new ImageCursor(img);
     }
 
-    // ==================================
-    // はじめから
-    // ==================================
-	 @FXML
-	 void NewStart(ActionEvent event) {
-	     SEPlayer.play("イベント/click.mp3");
-	
-	     Stage currentStage =
-	         (Stage) ((Node) event.getSource()).getScene().getWindow();
-	     Scene currentScene =
-	         ((Node) event.getSource()).getScene();
-	
-	     // ============================
-	     // セーブ有無チェック
-	     // ============================
-	     boolean hasSave = SaveDataUtil.exists();
-	
-	     // ----------------------------
-	     // セーブが無い場合
-	     // → 確認なしで即ストーリー開始
-	     // ----------------------------
-	     if (!hasSave) {
-	         System.out.println("セーブなし：確認せずストーリー開始");
-	
-	         initDatabaseAndStartStory(currentStage, currentScene);
-	         return;
-	     }
-	
-	     // ----------------------------
-	     // セーブがある場合
-	     // → 確認ダイアログを出す
-	     // ----------------------------
-	     StartDialogUtil.showConfirmDialog(currentStage, result -> {
-	         if (!result) return;
-	
-	         System.out.println("セーブあり：初期化してストーリー開始");
-	         initDatabaseAndStartStory(currentStage, currentScene);
-	     });
-	 }
+    @FXML
+void NewStart(ActionEvent event) {
+    SEPlayer.play("イベント/click.mp3");
 
-	// ==================================
-	// DB初期化 → ストーリー開始
-	// ==================================
-	private void initDatabaseAndStartStory(Stage stage, Scene scene) {
+    Stage currentStage =
+        (Stage) ((Node) event.getSource()).getScene().getWindow();
+    Scene currentScene =
+        ((Node) event.getSource()).getScene();
 
-	    // ----------------------------
-	    // DB 初期化
-	    // ----------------------------
-		try {
-            // ▼ 1. Program Files 内の init.sql の場所を取得
-            File jarFile = new File(DBManager.class.getProtectionDomain()
-                    .getCodeSource().getLocation().toURI());
-            File jarDir = jarFile.getParentFile(); // app/
-            Path sqlPath = Paths.get(jarDir.getAbsolutePath(), "init.sql");
+    // ============================
+    // セーブ有無チェック
+    // ============================
+    boolean hasSave = SaveDataUtil.exists();
 
-            if (!Files.exists(sqlPath)) {
-                throw new IOException("init.sql が見つかりません: " + sqlPath);
-            }
+    // ----------------------------
+    // セーブが無い場合
+    // → 確認なしで即ストーリー開始
+    // ----------------------------
+    if (!hasSave) {
+        System.out.println("セーブなし：確認せずストーリー開始");
+        initDatabaseAndStartStory(currentStage, currentScene);
+        return;
+    }
 
-            // ▼ 2. init.sql を読み込む
-            String sql = Files.readString(sqlPath);
-
-            // ▼ 3. ユーザーディレクトリの game.db に接続
-            try (Connection conn = DBManager.getConnection();
-                 Statement stmt = conn.createStatement()) {
-
-                // ▼ 4. SQL を1文ずつ実行
-                for (String s : sql.split(";")) {
-                    if (!s.trim().isEmpty()) {
-                        stmt.executeUpdate(s.trim());
-                    }
-                }
-            }
-
-            System.out.println("初期化処理が完了しました");
-
-        } catch (Exception e) {
-            e.printStackTrace();
-            System.out.println("初期化処理に失敗しました: " + e.getMessage());
+    // ----------------------------
+    // セーブがある場合
+    // → 確認ダイアログを出す
+    // ----------------------------
+    StartDialogUtil.showConfirmDialog(currentStage, result -> {
+        if (!result) {
+            System.out.println("キャンセルされました");
+            return;
         }
 
-	    // ----------------------------
-	    // ストーリー開始
-	    // ----------------------------
-	    new Story().show(
-	        stage,
-	        scene,
-	        0,
-	        () -> {
-	            System.out.println("[DEBUG] Story finished → Menu.fxml");
-	            SceneManager.changeScene("Menu.fxml");
-	            SaveDataUtil.markStoryFinished();
-	        }
-	    );
-	}
+        System.out.println("セーブあり：初期化してストーリー開始");
+        initDatabaseAndStartStory(currentStage, currentScene);
+    });
+}
+	
+	// ==================================
+// DB初期化 → ストーリー開始
+// ==================================
+private void initDatabaseAndStartStory(Stage stage, Scene scene) {
 
+    // ----------------------------
+    // DB 初期化
+    // ----------------------------
+    try {
+        // ▼ 1. Program Files 内の init.sql の場所を取得
+        File jarFile = new File(DBManager.class.getProtectionDomain()
+                .getCodeSource().getLocation().toURI());
+        File jarDir = jarFile.getParentFile(); // app/
+        Path sqlPath = Paths.get(jarDir.getAbsolutePath(), "init.sql");
 
-    // ==================================
-    // DB初期化処理
-    // ==================================
-    private void initDatabase() {
+        if (!Files.exists(sqlPath)) {
+            throw new IOException("init.sql が見つかりません: " + sqlPath);
+        }
+
+        // ▼ 2. init.sql を読み込む
+        String sql = Files.readString(sqlPath);
+
+        // ▼ 3. ユーザーディレクトリの game.db に接続
         try (Connection conn = DBManager.getConnection();
              Statement stmt = conn.createStatement()) {
 
-            String sql = Files.readString(Paths.get("init.sql"));
+            // ▼ 4. SQL を1文ずつ実行
             for (String s : sql.split(";")) {
                 if (!s.trim().isEmpty()) {
                     stmt.executeUpdate(s.trim());
                 }
             }
-            System.out.println("DB初期化完了");
-
-        } catch (IOException | SQLException e) {
-            e.printStackTrace();
         }
+
+        System.out.println("初期化処理が完了しました");
+
+    } catch (Exception e) {
+        e.printStackTrace();
+        System.out.println("初期化処理に失敗しました: " + e.getMessage());
     }
 
-    // ==================================
-    // つづきから
-    // ==================================
+    // ----------------------------
+    // ストーリー開始
+    // ----------------------------
+    new Story().show(
+        stage,
+        scene,
+        0,
+        () -> {
+            System.out.println("[DEBUG] Story finished → Menu.fxml");
+            SceneManager.changeScene("Menu.fxml");
+            SaveDataUtil.markStoryFinished();
+        }
+    );
+}
+
     @FXML
     public void StartContinue(ActionEvent event) {
-        SEPlayer.play("イベント/click.mp3");
+    	SEPlayer.play("イベント/click.mp3");
         SceneManager.changeScene("Menu.fxml");
     }
 
-    // ==================================
-    // オプション
-    // ==================================
     @FXML
     void Option(ActionEvent event) {
-        SEPlayer.play("イベント/click.mp3");
-        Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+    	SEPlayer.play("イベント/click.mp3");
+        Stage currentStage = (Stage) ((Node) event.getSource()).getScene().getWindow();
 
-        OptionDialogUtil.showConfirmDialog(stage, result -> {
+        OptionDialogUtil.showConfirmDialog(currentStage, result -> {
             if (result) {
-                System.out.println("Option OK");
+                System.out.print("OK");
+            } else {
+                System.out.println("Cancel");
             }
         });
     }

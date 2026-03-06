@@ -40,7 +40,7 @@ public class StageEXController extends StageController{
         }
     	
     	else {
-            currentWaveRawEnemies = List.of();
+            currentWaveRawEnemies = List.of(EnemyDAO.getEnemyById(22));
         }
     	
     	return currentWaveRawEnemies;

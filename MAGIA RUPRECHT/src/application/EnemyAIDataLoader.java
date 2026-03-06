@@ -8,7 +8,7 @@ public class EnemyAIDataLoader {
 
     public EnemyAIData load(int enemyId) {
 
-        String resourcePath = "/enemyAction/enemy_" + enemyId + ".json";
+        String resourcePath = "/resources/enemyAction/enemy_" + enemyId + ".json";
 
         try (var stream = getClass().getResourceAsStream(resourcePath)) {
 

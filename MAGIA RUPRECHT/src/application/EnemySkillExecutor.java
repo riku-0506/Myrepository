@@ -3,6 +3,7 @@ package application;
 public class EnemySkillExecutor {
 	
 	static int dmg;
+	static int finaldmg;
 
     public static void execute(int skillId, Character enemy, Character player) {
     	
@@ -30,8 +31,12 @@ public class EnemySkillExecutor {
                 } else {
                     dmg = magic.getPower();
                 }
-
-                player.applyDamage(dmg);
+                
+                finaldmg = (int)(dmg * player.getModifiedDefense());
+                System.out.println("敵の元ダメージ:" + dmg);
+                System.out.println("プレイヤーの防御率" + player.getModifiedDefense());
+                player.applyDamage(finaldmg);
+                System.out.println("敵の最終ダメージ:" + finaldmg);
             }
 
             case STATUS -> {
@@ -93,6 +98,6 @@ public class EnemySkillExecutor {
 	}
     
     public static int getdmg() {
-    	return dmg;
+    	return finaldmg;
     }
 }

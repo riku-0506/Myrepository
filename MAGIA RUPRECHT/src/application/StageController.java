@@ -71,14 +71,12 @@ public class StageController {
 	@FXML private Label enemy_Name1, enemy_Name2, enemy_Name3, enemy_Name4, enemy_Name5;
 	private List<Label> enemyNameLabels;
 
-	@FXML private Label enemy_status1, enemy_status2, enemy_status3, enemy_status4, enemy_status5;
-	private List<Label> enemyStatusLabels;
-
-	private List<HBox> enemyNameStatusBoxes;
+	@FXML private HBox enemy_status1,enemy_status2,enemy_status3,enemy_status4,enemy_status5;
+	private List<HBox> enemyStatusHBoxes;
 
 	@FXML private HBox enemyHBox;
 	@FXML private VBox enemyBox1, enemyBox2, enemyBox3, enemyBox4, enemyBox5;
-	@FXML private HBox enemy_NameStatus1, enemy_NameStatus2, enemy_NameStatus3, enemy_NameStatus4, enemy_NameStatus5;
+//	@FXML private HBox enemy_NameStatus1, enemy_NameStatus2, enemy_NameStatus3, enemy_NameStatus4, enemy_NameStatus5;
 
 	@FXML private ScrollPane battleLogScroll;
 	@FXML private VBox battleLogBox;
@@ -101,6 +99,8 @@ public class StageController {
 	private CustomMagic selectedMagic = null;
 	private Item selectedItem = null;
 	private Character selectedEnemy = null;
+	private boolean enemyClickLocked = false;
+
 
 	boolean playerActing = false;
 	private int remainingAnimations = 0;
@@ -175,9 +175,7 @@ public class StageController {
 
             enemyNameLabels.get(i).setText(enemyChar.getName());
             enemyNameLabels.get(i).setVisible(true);
-            enemyNameStatusBoxes.get(i).setVisible(true);
-            enemyStatusLabels.get(i).setText("");
-            enemyStatusLabels.get(i).setVisible(true);
+            enemyStatusHBoxes.get(i).setVisible(true);
         }
 
 
@@ -271,10 +269,7 @@ public class StageController {
         enemyImageViews = List.of(enemy1, enemy2, enemy3, enemy4, enemy5);
         enemyHpBars     = List.of(enemy1_HP, enemy2_HP, enemy3_HP, enemy4_HP, enemy5_HP);
         enemyNameLabels = List.of(enemy_Name1, enemy_Name2, enemy_Name3, enemy_Name4, enemy_Name5);
-        enemyNameStatusBoxes = List.of(
-            enemy_NameStatus1, enemy_NameStatus2, enemy_NameStatus3, enemy_NameStatus4, enemy_NameStatus5
-        );
-        enemyStatusLabels = List.of(
+        enemyStatusHBoxes = List.of(
             enemy_status1, enemy_status2, enemy_status3, enemy_status4, enemy_status5
         );
 
@@ -427,7 +422,6 @@ public class StageController {
 
             MagicExecutor.cast(cm, player, enemies, enemies, () -> {
                 updatePlayerStatsUI();
-                player.updateBuffsEachTurn();
                 enemies.forEach(Character::updateBuffsEachTurn);
 
                 for (int i = 0; i < magicButtons.size(); i++) {
@@ -468,7 +462,6 @@ public class StageController {
 
         MagicExecutor.cast(cm, player, List.of(player), enemies, () -> {
             updatePlayerStatsUI();
-            player.updateBuffsEachTurn();
             enemies.forEach(Character::updateBuffsEachTurn);
 
             for (int i = 0; i < magicButtons.size(); i++) {
@@ -505,26 +498,26 @@ public class StageController {
 
         ProgressBar bar = enemyDisplay.getHPBarList().get(idx);
         ImageView image = enemyImageViews.get(idx);
-        Label status = enemyStatusLabels.get(idx);
+        HBox status = enemyStatusHBoxes.get(idx);
         Label nameLabel = enemyNameLabels.get(idx);
-        HBox enemyNameStatus = enemyNameStatusBoxes.get(idx);
 
         if (enemy.getHP() > 0) {
-            status.setText(enemy.getStatusEffectSummary());
+            updateEnemyStatusEffectIcons(status,enemy);
             bar.setProgress((double) enemy.getHP() / enemy.getMaxHP());
             bar.setVisible(true);
             image.setVisible(true);
             image.setOnMouseClicked(this::onEnemyClicked);
             nameLabel.setText(enemy.getName());
-            enemyNameStatus.setVisible(true);
 
         } else {
             bar.setProgress(0);
             bar.setVisible(false);
             image.setVisible(false);
             image.setOnMouseClicked(null);
-            nameLabel.setText(enemy.getName());
-            enemyNameStatus.setVisible(false);
+            nameLabel.setText("");
+            nameLabel.setVisible(false);
+            status.setVisible(false);
+            
 
             Enemy raw = currentWaveRawEnemies.get(idx);
             if (!defeatedEnemiesCurrentWave.contains(raw)) {
@@ -542,9 +535,8 @@ public class StageController {
 
         ProgressBar bar = enemyDisplay.getHPBarList().get(idx);
         ImageView image = enemyImageViews.get(idx);
-        Label status = enemyStatusLabels.get(idx);
+        HBox status = enemyStatusHBoxes.get(idx);
         Label nameLabel = enemyNameLabels.get(idx);
-        HBox enemyNameStatus = enemyNameStatusBoxes.get(idx);
 
         int afterHP = enemy.getHP();
         Enemy raw = currentWaveRawEnemies.get(idx);
@@ -554,19 +546,18 @@ public class StageController {
         
         System.out.println("playDamageAnimation呼び出し for " + enemy.getName());
         BattleAnimationManager.playDamageAnimation(
-            enemy, bar, nameLabel, status, enemyNameStatus,
+            enemy, bar, nameLabel, status, 
             () -> {
                 remainingAnimations--;
                 System.out.println(">>> Runnable invoked for " + enemy.getName() + ", remaining=" + remainingAnimations);
 
                 if (afterHP > 0) {
-                	status.setText(enemy.getStatusEffectSummary());
+                	updateEnemyStatusEffectIcons(status,enemy);
                     bar.setProgress((double) afterHP / enemy.getMaxHP());
                     bar.setVisible(true);
                     image.setVisible(true);
                     image.setOnMouseClicked(this::onEnemyClicked);
                     nameLabel.setText(enemy.getName());
-                    enemyNameStatus.setVisible(true);
                 } else {
                     if (!defeatedEnemiesCurrentWave.contains(raw)) {
                         defeatedEnemiesCurrentWave.add(raw);
@@ -577,7 +568,6 @@ public class StageController {
                     bar.setVisible(false);
                     image.setVisible(false);
                     image.setOnMouseClicked(null);
-                    enemyNameStatus.setVisible(false);
                 }
                 
                 
@@ -609,7 +599,7 @@ public class StageController {
     
     //敵の状態異常表示
     public void updateEnemyStatusUI(Character enemy, int slotId) {
-        Label statusLabel = switch (slotId) {
+        HBox statusHBox = switch (slotId) {
             case 0 -> enemy_status1;
             case 1 -> enemy_status2;
             case 2 -> enemy_status3;
@@ -618,23 +608,24 @@ public class StageController {
             default -> null;
         };
 
-        if (statusLabel != null) {
+        if (statusHBox != null) {
             // ★ 睡眠も含めて Character 側でまとめて生成
-            statusLabel.setText(enemy.getStatusEffectSummary());
+        	updateEnemyStatusEffectIcons(statusHBox,enemy);
         }
     }
 
     
-    //状態異常ラベルを空にする
+ // 状態異常ボックスを空にする
     public void clearEnemyStatusUI(int slotId) {
         switch (slotId) {
-            case 0 -> enemy_status1.setText("");
-            case 1 -> enemy_status2.setText("");
-            case 2 -> enemy_status3.setText("");
-            case 3 -> enemy_status4.setText("");
-            case 4 -> enemy_status5.setText("");
+            case 0 -> enemy_status1.getChildren().clear();
+            case 1 -> enemy_status2.getChildren().clear();
+            case 2 -> enemy_status3.getChildren().clear();
+            case 3 -> enemy_status4.getChildren().clear();
+            case 4 -> enemy_status5.getChildren().clear();
         }
     }
+
 
 
     //バトルログにメッセージを追加
@@ -703,12 +694,41 @@ public class StageController {
                         currentPhase = TurnPhase.PLAYER_TURN;
                         playerActing = false;
                         
+                        player.updateBuffsEachTurn();
+                        player.applyStatusEffectsAtTurnStart();
                         updatePlayerStatsUI();
+                        
+                        if (player.getHP() <= 0) {
+                            BGMPlayer.playOnce("イベント/maou_game_jingle10.mp3");
+                            appendLog("ゲームオーバー…");
+                            disableAllActions();
+                            currentPhase = TurnPhase.END;
+
+                         // ★ レイアウト確定後に実行する
+                            Platform.runLater(() -> {
+                                BattleAnimationManager.showGameOver((AnchorPane) battleLogBox.getScene().getRoot());
+                            });
+
+
+                            Scene scene = battleLogBox.getScene();
+                            PauseTransition gameOverPause = new PauseTransition(Duration.seconds(2));
+                            gameOverPause.setOnFinished(event -> {
+                                appendLog("画面をクリックしてメニューに戻ります");
+                                resetBattle();
+                                scene.setOnMouseClicked(e2 -> SceneManager.changeScene("Menu.fxml"));
+                            });
+                            gameOverPause.play();
+
+                            return;
+                        }
+                        
                         if(player.isSleeping()) {
                         	appendLog("ループは眠っていて動けない!");
                         	remainingAnimations = 0;
+                        	currentPhase = TurnPhase.ENEMY_TURN;
                         	executeEnemyTurn(); // 敵ターン開始
                         }else {
+                        	enemyClickLocked = false; 	 //★敵クリックロック解除
                         	enableAllActions();          // ★ 魔法ボタン復活
 	                        restoreEnemyClickHandlers(); // ★ 敵クリック復活はここだけ
                         }
@@ -730,38 +750,48 @@ public class StageController {
 
     private void executeEnemyTurnRecursive(int index) {
 
-        // 全敵の行動が終わった
-        if (index >= enemies.size()) {
+    	// 全敵の行動が終わった
+    	if (index >= enemies.size()) {
 
-            // ★ バフのターン減少
-            player.updateBuffsEachTurn();
-            enemies.forEach(Character::updateBuffsEachTurn);
+    	    // ★ バフのターン減少
+    	    enemies.forEach(Character::updateBuffsEachTurn);
 
-            // ★ 状態異常のターン減少
-            player.updateStatusTurnsEachTurn();
-            enemies.forEach(Character::updateStatusTurnsEachTurn);
+    	    // ★ 状態異常のターン減少
+    	    player.updateStatusTurnsEachTurn();
+    	    enemies.forEach(Character::updateStatusTurnsEachTurn);
 
-            checkBattleEndAsync(battleEnded -> {
-                if (!battleEnded) {
-                    nextTurnAsync();
-                }
-            });
-            return;
-        }
+    	    // ★ UI更新（任意：状態異常ターン減少後の表示を反映）
+    	    updatePlayerStatsUI();
+    	    updateAllEnemyUI();
+
+    	    // ★ 少し待ってから次の処理へ
+    	    PauseTransition pause = new PauseTransition(Duration.millis(200)); 
+    	    pause.setOnFinished(ev -> {
+    	        checkBattleEndAsync(battleEnded -> {
+    	            if (!battleEnded) {
+    	                nextTurnAsync();
+    	            }
+    	        });
+    	    });
+    	    pause.play();
+
+    	    return;
+    	}
+
 
         Character e = enemies.get(index);
-
-        // 死亡している敵はスキップ
-        if (e.getHP() <= 0) {
-            executeEnemyTurnRecursive(index + 1);
-            return;
-        }
 
         // ★ ターン開始時の状態異常処理
         e.applyStatusEffectsAtTurnStart();
 
         // UI 更新（睡眠などの表示）
         updateEnemyUI(e);
+        
+     // 死亡している敵はスキップ
+        if (e.getHP() <= 0) {
+            executeEnemyTurnRecursive(index + 1);
+            return;
+        }
 
         // ★ 行動不能（睡眠など）
         if (!e.canAct()) {
@@ -825,7 +855,6 @@ public class StageController {
     void prepareNextWave(int waveNumber) {
     	
     	//プレイヤーのバフ・状態異常のターン経過
-        player.updateBuffsEachTurn();
         player.updateStatusTurnsEachTurn();
         updatePlayerStatsUI(); // UI反映
 
@@ -865,15 +894,12 @@ public class StageController {
             bar.setVisible(false);
             bar.setProgress(1.0);
         }
-        for (HBox box : enemyNameStatusBoxes) {
-            box.setVisible(false);
-        }
         for (Label lbl : enemyNameLabels) {
             lbl.setText("");
             lbl.setVisible(false);
         }
-        for (Label lbl : enemyStatusLabels) {
-            lbl.setText("");
+        for (HBox lbl : enemyStatusHBoxes) {
+            lbl.getChildren().clear();
             lbl.setVisible(false);
         }
 
@@ -937,10 +963,8 @@ public class StageController {
 
             enemyHpBars.get(i).setVisible(true);
             enemyHpBars.get(i).setProgress((double) enemyChar.getHP() / enemyChar.getMaxHP());
-
-            enemyNameStatusBoxes.get(i).setVisible(true);
-            enemyStatusLabels.get(i).setText(" " + enemyChar.getStatusEffectSummary());
-            enemyStatusLabels.get(i).setVisible(true);
+            updateEnemyStatusEffectIcons(enemyStatusHBoxes.get(i),enemyChar);
+            enemyStatusHBoxes.get(i).setVisible(true);
         }
 
         // 余りスロット非表示
@@ -949,8 +973,7 @@ public class StageController {
             enemyImageViews.get(i).setOnMouseClicked(null);
             enemyHpBars.get(i).setVisible(false);
             enemyNameLabels.get(i).setVisible(false);
-            enemyNameStatusBoxes.get(i).setVisible(false);
-            enemyStatusLabels.get(i).setVisible(false);
+            enemyStatusHBoxes.get(i).setVisible(false);
         }
 
         // UI更新
@@ -959,6 +982,7 @@ public class StageController {
         // 次ウェーブ開始時は必ずプレイヤーターン
         currentPhase = TurnPhase.PLAYER_TURN;
         playerActing = false; // ← 行動解除
+        enemyClickLocked = false;
         enableAllActions();
     }
     
@@ -1151,13 +1175,20 @@ public class StageController {
     //敵の対象選択
     @FXML
     private void onEnemyClicked(MouseEvent event) {
+    	
+    	if (enemyClickLocked) {
+    		System.out.println("多重発火防止のためreturn");
+            return; // ★ 多重発火完全防止
+        }
+        enemyClickLocked = true; // ★ 最初の1回だけ通す
 
         // 敵クリック時に一旦クリック無効化
-        for (ImageView view : enemyImageViews) {
-            view.setOnMouseClicked(null);
-        }
+//        for (ImageView view : enemyImageViews) {
+//            view.setOnMouseClicked(null);
+//        }
 
         if (playerActing || currentPhase != TurnPhase.PLAYER_TURN) {
+        	enemyClickLocked = false;
             return;
         }
 
@@ -1165,11 +1196,16 @@ public class StageController {
         Object data = clicked.getUserData();
 
         if (!(data instanceof Integer index) || index >= enemies.size()) {
+        	enemyClickLocked = false;
             return;
         }
 
         Character target = enemies.get(index);
-        if (target.getHP() <= 0) return;
+        
+        if (target.getHP() <= 0) {
+        	enemyClickLocked = false;
+        	return;
+        }
 
         selectedEnemy = target;
         appendLog(target.getName() + " を選択しました");
@@ -1184,7 +1220,6 @@ public class StageController {
             MagicExecutor.cast(selectedMagic, player, List.of(target), enemies, () -> {
 
                 // ★ 先にバフのターンを減らす
-                player.updateBuffsEachTurn();
                 enemies.forEach(Character::updateBuffsEachTurn);
 
                 // ★ その後で UI を更新
@@ -1196,11 +1231,13 @@ public class StageController {
                 checkBattleEndAsync(battleEnded -> {
                     if (!battleEnded) {
                         playerActing = false;
+                        enemyClickLocked = false;
                         nextTurnAsync();
                     }
                 });
+                enemyClickLocked = false;
             });
-
+            
         } else if (selectedItem != null) {
 
             // ======== アイテム発動 ========
@@ -1215,13 +1252,24 @@ public class StageController {
 
             selectedItem = null;
             selectedEnemy = null;
+            enemyClickLocked = false;
 
             return;
         } else {
             // どちらも選ばれていない
             appendLog("行動が選択されていません");
+            enemyClickLocked = false;
         }
     }
+    
+    private void disableEnemyClicks() {
+        for (ImageView view : enemyImageViews) {
+            view.setOnMouseClicked(null);
+        }
+    }
+    
+    
+
 
 
     //レベル関連
@@ -1250,7 +1298,7 @@ public class StageController {
     }
 
 
-    private static final int BUFF_ICON_SIZE = 30;
+    private static final int BUFF_ICON_SIZE = 32;
 
     void updatePlayerStatsUI() {
 
@@ -1260,42 +1308,11 @@ public class StageController {
 
         updateBuffIcons(state_correction_container, state_correction_label, player.getActiveBuffs());
         updateStatusEffectIcons(state_effects_container, state_effects_label, player.getActiveStatusEffectIcons());
-//        updateIconRow(state_effects_container, state_effects_label, player.getActiveStatusEffectIcons());
     }
 
-    
-    private void updateIconRow(VBox container, Text label, List<String> iconPaths) {
 
-        container.getChildren().clear();
-
-        // ラベル行
-        HBox labelRow = new HBox(label);
-        container.getChildren().add(labelRow);
-
-        // アイコンを 2 個ずつ詰める
-        HBox currentRow = new HBox(3); // spacing=3
-        int count = 0;
-
-        for (String path : iconPaths) {
-            ImageView icon = createIcon(path);
-            currentRow.getChildren().add(icon);
-            count++;
-
-            // 2 個入れたら次の行へ
-            if (count % 2 == 0) {
-                container.getChildren().add(currentRow);
-                currentRow = new HBox(3);
-            }
-        }
-
-        // 余りが 1 個だけの行も追加
-        if (!currentRow.getChildren().isEmpty()) {
-            container.getChildren().add(currentRow);
-        }
-    }
-
-    
     private ImageView createIcon(String iconPath) {
+    	System.out.println(iconPath);
         ImageView icon = new ImageView(
             new Image(getClass().getResource(iconPath).toExternalForm())
         );
@@ -1328,67 +1345,121 @@ public class StageController {
 
         container.getChildren().clear();
 
-        // ラベル行
         HBox labelRow = new HBox(label);
         container.getChildren().add(labelRow);
 
-        // ① 種類ごとに「存在するランクのリスト」を集約
         Map<Type, List<Integer>> typeToRanks = new LinkedHashMap<>();
+        List<Integer> specialRanks = new ArrayList<>();
+        
+        System.out.println("バフリスト");
+        for(UnifiedBuff buff: buffs) {
+        	if (buff.isSpecialMagicBuff()) {
+            	System.out.print("特殊魔法内部バフ/");
+            }else {
+            	System.out.print("通常バフ/");
+            }
+        	System.out.println(buff.getType() + "/" + buff.getRank());
+        }
 
         for (UnifiedBuff buff : buffs) {
-            Type type = buff.getType();
-            int rank = buff.getRank();
 
+            // ★ SPECIAL の内部バフは UI 非表示
+            if (buff.isSpecialMagicBuff()) {
+                continue;
+            }
+
+            // ★ SPECIAL 自体は rank を別管理
+            if (buff.getType() == Type.SPECIAL) {
+                specialRanks.add(buff.getRank());
+                continue;
+            }
+
+            // 通常バフ
             typeToRanks
-                .computeIfAbsent(type, k -> new ArrayList<>())
-                .add(rank);
+                .computeIfAbsent(buff.getType(), k -> new ArrayList<>())
+                .add(buff.getRank());
         }
 
-        // ② ランクを昇順にソートし、重複を排除
-        for (List<Integer> ranks : typeToRanks.values()) {
-            ranks.sort(Integer::compareTo);
-            ranks = ranks.stream().distinct().toList();
-        }
-
-        // ③ 種類を 2 種類ずつ 1 行に詰める
+        // 通常バフの表示
         HBox currentRow = new HBox(3);
-        int typeCountInRow = 0;
+        int count = 0;
 
-        for (Map.Entry<Type, List<Integer>> entry : typeToRanks.entrySet()) {
+        for (var entry : typeToRanks.entrySet()) {
+            List<ImageView> icons = createIconsForTypeAndRanks(entry.getKey(), entry.getValue());
 
-            Type type = entry.getKey();
-            List<Integer> ranks = entry.getValue();
-
-            // この種類のアイコンを作る
-            List<ImageView> icons = createIconsForTypeAndRanks(type, ranks);
-
-            // 2種類入れたら次の行へ
-            if (typeCountInRow == 2) {
+            if (count == 2) {
                 container.getChildren().add(currentRow);
                 currentRow = new HBox(3);
-                typeCountInRow = 0;
+                count = 0;
             }
 
             currentRow.getChildren().addAll(icons);
-            typeCountInRow++;
+            count++;
         }
 
         if (!currentRow.getChildren().isEmpty()) {
             container.getChildren().add(currentRow);
         }
+
+        // ★ SPECIAL の rank アイコンを最後にまとめて表示
+        if (!specialRanks.isEmpty()) {
+            HBox specialRow = new HBox(3);
+            specialRanks.sort(Integer::compareTo);
+            specialRanks = specialRanks.stream().distinct().toList();
+
+            for (int rank : specialRanks) {
+                specialRow.getChildren().add(
+                    createIcon("/application/images/Buff_icon/buff_special_" + rank + ".png")
+                );
+            }
+
+            container.getChildren().add(specialRow);
+        }
     }
 
+
+
     private List<ImageView> createIconsForTypeAndRanks(Type type, List<Integer> ranks) {
+
         List<ImageView> list = new ArrayList<>();
 
+        // ★ SPECIAL は rank に応じたアイコンを作る
+        if (type == Type.SPECIAL) {
+            for (int rank : ranks) {
+                String path = "/application/images/Buff_icon/buff_special_" + rank + ".png";
+                list.add(createIcon(path));
+            }
+            return list;
+        }
+
+        // 通常バフはランク別アイコンを生成
         for (int rank : ranks) {
+        	System.out.println("ランク数:" + rank);
+        	if(rank == 99) {
+        		System.out.println("アイコンがないのでスキップ");
+        		continue;
+        	}
             String path = "/application/images/Buff_icon/" + type.getIconName() + "_" + rank + ".png";
             list.add(createIcon(path));
         }
 
         return list;
     }
+    
+    private void updateEnemyStatusEffectIcons(HBox statusBox, Character enemy) {
 
+        // HBox をクリア
+        statusBox.getChildren().clear();
+
+        // Character からアイコンパス一覧を取得
+        List<String> iconPaths = enemy.getActiveStatusEffectIcons();
+
+        // アイコンを追加
+        for (String path : iconPaths) {
+            ImageView icon = createIcon(path);
+            statusBox.getChildren().add(icon);
+        }
+    }
     
 
     private void selectItem(Item item) {
@@ -1537,16 +1608,10 @@ public class StageController {
             }
         }
 
-        if (enemyStatusLabels != null) {
-            for (Label status : enemyStatusLabels) {
-                status.setText("");
+        if (enemyStatusHBoxes != null) {
+            for (HBox status : enemyStatusHBoxes) {
+                status.getChildren().clear();
                 status.setVisible(false);
-            }
-        }
-
-        if (enemyNameStatusBoxes != null) {
-            for (HBox box : enemyNameStatusBoxes) {
-                box.setVisible(false);
             }
         }
 
@@ -1629,12 +1694,6 @@ public class StageController {
 	    this.enemyBox3 = original.enemyBox3;
 	    this.enemyBox4 = original.enemyBox4;
 	    this.enemyBox5 = original.enemyBox5;
-	
-	    this.enemy_NameStatus1 = original.enemy_NameStatus1;
-	    this.enemy_NameStatus2 = original.enemy_NameStatus2;
-	    this.enemy_NameStatus3 = original.enemy_NameStatus3;
-	    this.enemy_NameStatus4 = original.enemy_NameStatus4;
-	    this.enemy_NameStatus5 = original.enemy_NameStatus5;
 	    
 	    this.enemyDisplay = original.enemyDisplay;
 	
@@ -1647,8 +1706,7 @@ public class StageController {
 	    this.magicButtons = original.magicButtons;
 	    this.enemyHpBars = original.enemyHpBars;
 	    this.enemyNameLabels = original.enemyNameLabels;
-	    this.enemyStatusLabels = original.enemyStatusLabels;
-	    this.enemyNameStatusBoxes = original.enemyNameStatusBoxes;
+	    this.enemyStatusHBoxes = original.enemyStatusHBoxes;
 	    this.enemyImageViews = original.enemyImageViews;
 	    
 	 // --- 魔法関連 ---

@@ -61,6 +61,10 @@ public class ResultController {
             if (!cleared) {
                 // 初クリアの場合のみ処理
             	clearStageId = Stageid;
+            	if(Stageid == 5) {
+            		System.out.println("隠しステージクリア");
+            		return;
+            	}
             	
             	//魔法追加処理
             	List<Integer> magicIds = new ArrayList<Integer>();
@@ -126,6 +130,10 @@ public class ResultController {
     @FXML
     void GotoMenu(ActionEvent event) {
     	if(!cleared) {
+    		if(Stageid == 5) {
+        		System.out.println("隠しステージクリア");
+        		SceneManager.changeScene("Menu.fxml");
+        	}
     		Stage currentStage = SceneManager.getCurrentStage();
             Scene currentScene = SceneManager.getCurrentScene();
             System.out.println("[DEBUG] Passing Stage and Scene to Story_Sample: " + currentStage + ", " + currentScene);

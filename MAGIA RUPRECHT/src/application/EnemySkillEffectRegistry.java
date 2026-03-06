@@ -186,7 +186,7 @@ public class EnemySkillEffectRegistry {
         // ============================
         registry.put(121, magic -> {
             magic.setEffectType(PrimitiveMagic.EffectType.DAMAGE);
-            magic.setPower(150);
+            magic.setPower(300);
             magic.setBuffEffect(UnifiedBuff.Type.SPECIFIC_STATUS_CHANCE_UP, 1.0, 1, true, "感電");
         });
         
@@ -206,7 +206,7 @@ public class EnemySkillEffectRegistry {
         // ============================
         // 123:トゥルー・アークデーモン/ヘル・インフェルノ
         // ============================
-        registry.put(121, magic -> {
+        registry.put(123, magic -> {
             magic.setEffectType(PrimitiveMagic.EffectType.DAMAGE);
             magic.setPower(700);
         });

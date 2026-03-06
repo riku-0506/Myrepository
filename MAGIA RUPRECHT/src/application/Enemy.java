@@ -108,8 +108,8 @@ public class Enemy {
             case 18: return AttackType.BITE;
             case 19: return AttackType.ONI;
             case 20: return AttackType.BOSS4;
-            case 21: return AttackType.BOSS4;
-            case 22: return AttackType.BOSS4;
+            case 21: return AttackType.EXBOSS1;
+            case 22: return AttackType.EXBOSS2;
             default: return null;
         }
     }

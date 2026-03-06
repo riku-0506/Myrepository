@@ -83,16 +83,8 @@ public class MagicExecutor {
 		     for (UnifiedBuff rawBuff : part.getBuffList()) {
 	
 		         // caster に適用するバフ
-		         UnifiedBuff buff = new UnifiedBuff(
-		             rawBuff.getType(),
-		             rawBuff.getModifier(),
-		             rawBuff.getDuration(),
-		             true,                       // ★ 味方バフ
-		             rawBuff.isSingleUse(),
-		             rawBuff.getElement()
-		         );
-	
-		         caster.applyBuff(buff);
+		    	 UnifiedBuff buff = new UnifiedBuff(rawBuff);
+		    	 caster.applyBuff(buff);
 	
 		         // 敵にもバフが及ぶ特殊ケース（ケイオスフィルドなど）
 		         if (magic.affectsEnemiesWithBuff()) {
@@ -186,49 +178,34 @@ public class MagicExecutor {
 
 	                for (Character target : targets) {
 
-	                    UnifiedBuff debuff = new UnifiedBuff(
-	                        rawBuff.getType(),
-	                        rawBuff.getModifier(),
-	                        rawBuff.getDuration(),
-	                        false,                  // ★ デバフ
-	                        rawBuff.isSingleUse(),
-	                        rawBuff.getElement()
-	                    );
+	                	UnifiedBuff debuff = new UnifiedBuff(rawBuff);
+	                	target.applyBuff(debuff);
 
-	                    target.applyBuff(debuff);
 	                }
 	            }
 	        }
 
 	        // ---------------- SPECIAL（複数バフ対応） ----------------
 	        case SPECIAL -> {
-
-	            for (UnifiedBuff rawBuff : part.getBuffList()) {
-
-	                // 自分に適用するバフ（攻撃UP、防御DOWNなど）
-	                UnifiedBuff selfBuff = new UnifiedBuff(
-	                    rawBuff.getType(),
-	                    rawBuff.getModifier(),
-	                    rawBuff.getDuration(),
-	                    true,                       // ★ 自分にはバフ扱い
-	                    rawBuff.isSingleUse(),
-	                    rawBuff.getElement()
-	                );
-	                caster.applyBuff(selfBuff);
-
-	                // 敵に適用するデバフ（耐性DOWNなど）
-	                for (Character target : targets) {
-	                    UnifiedBuff enemyDebuff = new UnifiedBuff(
-	                        rawBuff.getType(),
-	                        rawBuff.getModifier(),
-	                        rawBuff.getDuration(),
-	                        false,                  // ★ 敵にはデバフ扱い
-	                        rawBuff.isSingleUse(),
-	                        rawBuff.getElement()
-	                    );
-	                    target.applyBuff(enemyDebuff);
-	                }
-	            }
+	        	if(part.getMagicId() == 34) {
+	        		logs.add("状態異常を回復！");
+	        		caster.clearStatusEffects();
+	        	}else {
+		            for (UnifiedBuff rawBuff : part.getBuffList()) {
+	
+		                // 自分に適用するバフ（攻撃UP、防御DOWNなど）
+		            	UnifiedBuff selfBuff = new UnifiedBuff(rawBuff);
+		            	caster.applyBuff(selfBuff);
+	
+	
+		                // 敵に適用するデバフ（耐性DOWNなど）
+		                for (Character target : targets) {
+		                	UnifiedBuff enemyDebuff = new UnifiedBuff(rawBuff);
+		                	target.applyBuff(enemyDebuff);
+	
+		                }
+		            }
+	        	}
 	        }
 
 	        // ---------------- STATUS ----------------
@@ -257,11 +234,14 @@ public class MagicExecutor {
 
 	    // 攻撃力（物理）も加算する場合は残す（魔法専用なら除外してもOK）
 	    double attackPower = caster.getModifiedAttack();
+	    System.out.println("バフ込み攻撃力:" + attackPower);
 	    double raw = (attackPower + power) * powerModifier;
 
 	    double resistanceRate;
 	    if (target.isPlayer()) {
 	        resistanceRate = 1.0 / target.getModifiedDefense();
+	        System.out.println("バフ込み防御力:" + target.getModifiedDefense());
+	        System.out.println("最終軽減率:" + resistanceRate);
 	    } else {
 	        resistanceRate = 1.0;
 	        for (String element : elements) {
@@ -282,26 +262,27 @@ public class MagicExecutor {
 	}
 
 	
-	public static void castMagic(Character user, String magicName) {
-	    PrimitiveMagic magic = PrimitiveMagicDAO.findByName(magicName);
-	    if (magic == null) {
-	        user.log("魔法「" + magicName + "」が見つかりませんでした");
-	        return;
+	public static void castMagic(Character caster, PrimitiveMagic magic) {
+		
+		if (magic == null) return;
+
+	    caster.log("「" + magic.getName() + "」の効果が発動！");
+
+	    // SPECIAL 魔法はすべてバフ／デバフのみ
+	    for (UnifiedBuff rawBuff : magic.getBuffList()) {
+
+	        // ★ コピーコンストラクタで内部バフフラグを保持
+	        UnifiedBuff buff = new UnifiedBuff(rawBuff);
+
+	        // 自分に適用
+	        caster.applyBuff(buff);
 	    }
 
-	    user.log("「" + magic.getName() + "」を発動！");
-	}
-
-
-	private static UnifiedBuff createBuffFromMagic(PrimitiveMagic magic, boolean isBuff) {
-
-	    // PrimitiveMagic がバフ情報を持っている場合はこちらを使う
-	    if (magic.hasBuffEffect()) {
-	        return magic.toUnifiedBuff(isBuff);
+	    // UI 更新
+	    StageController controller = StageController.getInstance();
+	    if (controller != null && caster.isPlayer()) {
+	        controller.updatePlayerStatsUI();
 	    }
-
-	    // バフ情報が無い場合は何もしない
-	    return null;
 	}
 
 	

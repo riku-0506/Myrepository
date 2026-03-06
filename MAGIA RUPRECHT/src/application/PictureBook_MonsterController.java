@@ -57,26 +57,44 @@ public class PictureBook_MonsterController implements Initializable {
         """,
         """
 		public class Slime {
-		    public int hp = 20;
-		    public int atk = 5;
-		            
-		    public void normalAttack() {
-		        System.out.println("Slimeの攻撃！");
-		    }
-		
-		    public List<Element> getWeaknesses() {
-		        return List.of(Element.FIRE, Element.THUNDER, 
-		        Element.ICE,Element.HOLY);
-		    }
-		
-		    public List<Element> getResistances() {
-		        return List.of(Element.NORMAL);
-		    }
-		
-		    public String dropItem() {
-		        return "スライムコア";
-		    }
-		}
+
+    public int hp = 20;
+    public int atk = 5;
+
+    public void attack() {
+        // 0.0以上1.0未満の乱数
+        if (Math.random() < 0.4) {
+            uniqueAttack();
+        } else {
+            normalAttack();
+        }
+    }
+    
+    // ノーマルアタック
+    public void normalAttack() {
+        player.hp -= 5;
+        System.out.println("Slimeの通常攻撃！");
+    }
+    
+    // 固有アタック
+    public void uniqueAttack() {
+        player.hp -= 8;
+        player.AddDefence(-0.1);
+        System.out.println("Slimeの酸攻撃!");
+    }
+
+    public List<Element> getWeaknesses() {
+        return List.of(Element.FIRE, Element.THUNDER, Element.ICE, Element.HOLY);
+    }
+
+    public List<Element> getResistances() {
+        return List.of(Element.NORMAL);
+    }
+
+    public String dropItem() {
+        return "スライムコア";
+    }
+}
         """,
         "images/monster/Slime.png"
         ));
@@ -92,8 +110,25 @@ public class PictureBook_MonsterController implements Initializable {
 		    public int hp = 30;
 		    public int atk = 13;
 		            
+		    public void attack() {
+		        // 0.0以上1.0未満の乱数
+		        if (Math.random() < 0.4) {
+		            uniqueAttack();
+		        } else {
+		            normalAttack();
+		        }
+		    }
+		    
+		    // ノーマルアタック
 		    public void normalAttack() {
-		        System.out.println("Goblinの攻撃！");
+		        player.hp -= 13;
+		        System.out.println("Goblinの通常攻撃！");
+		    }
+		    
+		    // 固有アタック
+		    public void uniqueAttack() {
+		        player.hp -= 14;
+		        System.out.println("Goblinのこん棒攻撃！");
 		    }
 		
 		    public List<Element> getWeaknesses() {
@@ -125,8 +160,26 @@ public class PictureBook_MonsterController implements Initializable {
 		    public int hp = 36;
 		    public int atk = 15;
 		            
+		    public void attack() {
+		        // 0.0以上1.0未満の乱数
+		        if (Math.random() < 0.4) {
+		            uniqueAttack();
+		        } else {
+		            normalAttack();
+		        }
+		    }
+		    
+		    // ノーマルアタック
 		    public void normalAttack() {
-		        System.out.println("WildBoaの攻撃！");
+		        player.hp -= 15;
+		        System.out.println("WildBoaの通常攻撃！");
+		    }
+		    
+		    // 固有アタック
+		    public void uniqueAttack() {
+		        player.hp -= 18;
+		        player.AddDefence(-0.1);
+		        System.out.println("WildBoaの突進！");
 		    }
 		
 		    public List<Element> getWeaknesses() {
@@ -157,8 +210,26 @@ public class PictureBook_MonsterController implements Initializable {
 		    public int hp = 40;
 		    public int atk = 8;
 		            
+		    public void attack() {
+		        // 0.0以上1.0未満の乱数
+		        if (Math.random() < 0.4) {
+		            uniqueAttack();
+		        } else {
+		            normalAttack();
+		        }
+		    }
+		    
+		    // ノーマルアタック
 		    public void normalAttack() {
-		        System.out.println("Giant-Antsの攻撃！");
+		        player.hp -= 8;
+		        System.out.println("Giant-Antsの通常攻撃！");
+		    }
+		    
+		    // 固有アタック
+		    public void uniqueAttack() {
+		        player.hp -= 5;
+		        player.Applystatus("poison");
+		        System.out.println("Giant-Antsの毒針！");
 		    }
 		
 		    public List<Element> getWeaknesses() {
@@ -187,8 +258,26 @@ public class PictureBook_MonsterController implements Initializable {
 		    public int hp = 200;
 		    public int atk = 50;
 		            
+		    public void attack() {
+		        // 0.0以上1.0未満の乱数
+		        if (Math.random() < 0.4) {
+		            uniqueAttack();
+		        } else {
+		            normalAttack();
+		        }
+		    }
+		    
+		    // ノーマルアタック
 		    public void normalAttack() {
-		        System.out.println("Cyclopsの攻撃！");
+		        player.hp -= 50;
+		        System.out.println("Cyclopsの通常攻撃！");
+		    }
+		    
+		    // 固有アタック
+		    public void uniqueAttack() {
+		        player.hp -= 30;
+		        player.Applystatus("fleeze");
+		        System.out.println("Cyclopsの冷たい一撃！");
 		    }
 		
 		    public List<Element> getWeaknesses() {
@@ -218,8 +307,25 @@ public class PictureBook_MonsterController implements Initializable {
 		    public int hp = 60;
 		    public int atk = 14;
 		            
+		    public void attack() {
+		        // 0.0以上1.0未満の乱数
+		        if (Math.random() < 0.4) {
+		            uniqueAttack();
+		        } else {
+		            normalAttack();
+		        }
+		    }
+		    
+		    // ノーマルアタック
 		    public void normalAttack() {
-		        System.out.println("Mermaidの攻撃！");
+		        player.hp -= 14;
+		        System.out.println("Mermaidの通常攻撃！");
+		    }
+		    
+		    // 固有アタック
+		    public void uniqueAttack() {
+		        player.Applystatus("sleep");
+		        System.out.println("Mermaidの破滅への誘い！");
 		    }
 		
 		    public List<Element> getWeaknesses() {
@@ -248,8 +354,25 @@ public class PictureBook_MonsterController implements Initializable {
 		    public int hp = 70;
 		    public int atk = 18;
 		            
+		    public void attack() {
+		        // 0.0以上1.0未満の乱数
+		        if (Math.random() < 0.4) {
+		            uniqueAttack();
+		        } else {
+		            normalAttack();
+		        }
+		    }
+		    
+		    // ノーマルアタック
 		    public void normalAttack() {
-		        System.out.println("Mermanの攻撃！");
+		        player.hp -= 18;
+		        System.out.println("Mermanの通常攻撃！");
+		    }
+		    
+		    // 固有アタック
+		    public void uniqueAttack() {
+		        player.hp -= 25;
+		        System.out.println("Mermanのトライデント！");
 		    }
 		
 		    public List<Element> getWeaknesses() {
@@ -279,8 +402,25 @@ public class PictureBook_MonsterController implements Initializable {
 		    public int hp = 45;
 		    public int atk = 12;
 		            
+		    public void attack() {
+		        // 0.0以上1.0未満の乱数
+		        if (Math.random() < 0.4) {
+		            uniqueAttack();
+		        } else {
+		            normalAttack();
+		        }
+		    }
+		    
+		    // ノーマルアタック
 		    public void normalAttack() {
-		        System.out.println("Ghost Ship Crewの攻撃！");
+		        player.hp -= 12;
+		        System.out.println("Ghost Ship Crewの通常攻撃！");
+		    }
+		    
+		    // 固有アタック
+		    public void uniqueAttack() {
+		        player.hp -= 18;
+		        System.out.println("Ghost Ship Crewのサーベルスラッシュ！");
 		    }
 		
 		    public List<Element> getWeaknesses() {
@@ -310,8 +450,25 @@ public class PictureBook_MonsterController implements Initializable {
 		    public int hp = 80;
 		    public int atk = 25;
 		            
+		    public void attack() {
+		        // 0.0以上1.0未満の乱数
+		        if (Math.random() < 0.4) {
+		            uniqueAttack();
+		        } else {
+		            normalAttack();
+		        }
+		    }
+		    
+		    // ノーマルアタック
 		    public void normalAttack() {
-		        System.out.println("Ghost Ship Captainの攻撃！");
+		        player.hp -= 25;
+		        System.out.println("Ghost Ship Captainの通常攻撃！");
+		    }
+		    
+		    // 固有アタック
+		    public void uniqueAttack() {
+		        player.hp -= 33;
+		        System.out.println("Ghost Ship Captainの乱れ撃ち！");
 		    }
 		
 		    public List<Element> getWeaknesses() {
@@ -340,8 +497,26 @@ public class PictureBook_MonsterController implements Initializable {
 		    public int hp = 400;
 		    public int atk = 90;
 		            
+		    public void attack() {
+		        // 0.0以上1.0未満の乱数
+		        if (Math.random() < 0.4) {
+		            uniqueAttack();
+		        } else {
+		            normalAttack();
+		        }
+		    }
+		    
+		    // ノーマルアタック
 		    public void normalAttack() {
-		        System.out.println("Krakenの攻撃！");
+		        player.hp -= 90;
+		        System.out.println("Krakenの通常攻撃！");
+		    }
+		    
+		    // 固有アタック
+		    public void uniqueAttack() {
+		        player.hp -= 80;
+		        player.Applystatus("fleeze");
+		        System.out.println("Krakenのコキュートス！");
 		    }
 		
 		    public List<Element> getWeaknesses() {
@@ -370,8 +545,26 @@ public class PictureBook_MonsterController implements Initializable {
 		    public int hp = 150;
 		    public int atk = 40;
 		            
+		    public void attack() {
+		        // 0.0以上1.0未満の乱数
+		        if (Math.random() < 0.4) {
+		            uniqueAttack();
+		        } else {
+		            normalAttack();
+		        }
+		    }
+		    
+		    // ノーマルアタック
 		    public void normalAttack() {
-		        System.out.println("Ogreの攻撃！");
+		        player.hp -= 40;
+		        System.out.println("Ogreの通常攻撃！");
+		    }
+		    
+		    // 固有アタック
+		    public void uniqueAttack() {
+		        player.hp -= 50;
+		        player.Applystatus("fleeze");
+		        System.out.println("Ogreのこん棒振り回し！");
 		    }
 		
 		    public List<Element> getWeaknesses() {
@@ -402,8 +595,25 @@ public class PictureBook_MonsterController implements Initializable {
 		    public int hp = 120;
 		    public int atk = 36;
 		            
+		    public void attack() {
+		        // 0.0以上1.0未満の乱数
+		        if (Math.random() < 0.4) {
+		            uniqueAttack();
+		        } else {
+		            normalAttack();
+		        }
+		    }
+		    
+		    // ノーマルアタック
 		    public void normalAttack() {
-		        System.out.println("ワーウルフの攻撃！");
+		        player.hp -= 36;
+		        System.out.println("WarWolfの通常攻撃！");
+		    }
+		    
+		    // 固有アタック
+		    public void uniqueAttack() {
+		        player.hp -= 44;
+		        System.out.println("WarWolfの宵闇の一爪！");
 		    }
 		
 		    public List<Element> getWeaknesses() {
@@ -433,8 +643,26 @@ public class PictureBook_MonsterController implements Initializable {
 		    public int hp = 100;
 		    public int atk = 35;
 		            
+		    public void attack() {
+		        // 0.0以上1.0未満の乱数
+		        if (Math.random() < 0.4) {
+		            uniqueAttack();
+		        } else {
+		            normalAttack();
+		        }
+		    }
+		    
+		    // ノーマルアタック
 		    public void normalAttack() {
-		        System.out.println("Horn-Rabbitの攻撃！");
+		        player.hp -= 35;
+		        System.out.println("Horn-Rabbitの通常攻撃！");
+		    }
+		    
+		    // 固有アタック
+		    public void uniqueAttack() {
+		        player.hp -= 48;
+		        player.Applystatus("paralysis");
+		        System.out.println("Horn-Rabbitの雷電槍撃！");
 		    }
 		
 		    public List<Element> getWeaknesses() {
@@ -463,8 +691,26 @@ public class PictureBook_MonsterController implements Initializable {
 		    public int hp = 135;
 		    public int atk = 38;
 		            
+		    public void attack() {
+		        // 0.0以上1.0未満の乱数
+		        if (Math.random() < 0.4) {
+		            uniqueAttack();
+		        } else {
+		            normalAttack();
+		        }
+		    }
+		    
+		    // ノーマルアタック
 		    public void normalAttack() {
-		        System.out.println("Thunder-Birdの攻撃！");
+		        player.hp -= 38;
+		        System.out.println("Thunder-Birdの通常攻撃！");
+		    }
+		    
+		    // 固有アタック
+		    public void uniqueAttack() {
+		        player.hp -= 54;
+		        player.Applystatus("paralysis");
+		        System.out.println("Thunder-Birdのサンダーストライク！");
 		    }
 		
 		    public List<Element> getWeaknesses() {
@@ -494,8 +740,26 @@ public class PictureBook_MonsterController implements Initializable {
 		    public int hp = 1000;
 		    public int atk = 150;
 		            
+		    public void attack() {
+		        // 0.0以上1.0未満の乱数
+		        if (Math.random() < 0.4) {
+		            uniqueAttack();
+		        } else {
+		            normalAttack();
+		        }
+		    }
+		    
+		    // ノーマルアタック
 		    public void normalAttack() {
-		        System.out.println("Lessor-Dragonの攻撃！");
+		        player.hp -= 150;
+		        System.out.println("Lessor-Dragonの通常攻撃！");
+		    }
+		    
+		    // 固有アタック
+		    public void uniqueAttack() {
+		        player.hp -= 180;
+		        player.Applystatus("burn");
+		        System.out.println("Lessor-Dragonのドラゴニック・ノヴァ！");
 		    }
 		
 		    public List<Element> getWeaknesses() {
@@ -525,8 +789,25 @@ public class PictureBook_MonsterController implements Initializable {
 		    public int hp = 250;
 		    public int atk = 50;
 		            
+		    public void attack() {
+		        // 0.0以上1.0未満の乱数
+		        if (Math.random() < 0.4) {
+		            uniqueAttack();
+		        } else {
+		            normalAttack();
+		        }
+		    }
+		    
+		    // ノーマルアタック
 		    public void normalAttack() {
-		        System.out.println("Ghost-Soldierの攻撃！");
+		        player.hp -= 50;
+		        System.out.println("Ghost-Soldierの通常攻撃！");
+		    }
+		    
+		    // 固有アタック
+		    public void uniqueAttack() {
+		        player.hp -= 65;
+		        System.out.println("Ghost-Soldierの精密射撃！");
 		    }
 		
 		    public List<Element> getWeaknesses() {
@@ -556,8 +837,26 @@ public class PictureBook_MonsterController implements Initializable {
 		    public int hp = 200;
 		    public int atk = 42;
 		            
+		    public void attack() {
+		        // 0.0以上1.0未満の乱数
+		        if (Math.random() < 0.4) {
+		            uniqueAttack();
+		        } else {
+		            normalAttack();
+		        }
+		    }
+		    
+		    // ノーマルアタック
 		    public void normalAttack() {
-		        System.out.println("ゾンビの攻撃！");
+		        player.hp -= 42;
+		        System.out.println("Zombiesの通常攻撃！");
+		    }
+		    
+		    // 固有アタック
+		    public void uniqueAttack() {
+		        player.hp -= 50;
+		        player.Applystatus("poison");
+		        System.out.println("Zombiesのコラプトバイト！");
 		    }
 		
 		    public List<Element> getWeaknesses() {
@@ -586,8 +885,26 @@ public class PictureBook_MonsterController implements Initializable {
 		    public int hp = 280;
 		    public int atk = 65;
 		            
+		    public void attack() {
+		        // 0.0以上1.0未満の乱数
+		        if (Math.random() < 0.4) {
+		            uniqueAttack();
+		        } else {
+		            normalAttack();
+		        }
+		    }
+		    
+		    // ノーマルアタック
 		    public void normalAttack() {
-		        System.out.println("Barghestの攻撃！");
+		        player.hp -= 65;
+		        System.out.println("Barghestの通常攻撃！");
+		    }
+		    
+		    // 固有アタック
+		    public void uniqueAttack() {
+		        player.hp -= 80;
+		        player.Applystatus("burn");
+		        System.out.println("Barghestの黒焔！");
 		    }
 		
 		    public List<Element> getWeaknesses() {
@@ -617,8 +934,25 @@ public class PictureBook_MonsterController implements Initializable {
 		    public int hp = 350;
 		    public int atk = 70;
 		            
+		    public void attack() {
+		        // 0.0以上1.0未満の乱数
+		        if (Math.random() < 0.4) {
+		            uniqueAttack();
+		        } else {
+		            normalAttack();
+		        }
+		    }
+		    
+		    // ノーマルアタック
 		    public void normalAttack() {
-		        System.out.println("Oniの攻撃！");
+		        player.hp -= 70;
+		        System.out.println("Oniの通常攻撃！");
+		    }
+		    
+		    // 固有アタック
+		    public void uniqueAttack() {
+		        player.hp -= 100;
+		        System.out.println("Oniの無慈悲ナ一撃！");
 		    }
 		
 		    public List<Element> getWeaknesses() {
@@ -648,8 +982,31 @@ public class PictureBook_MonsterController implements Initializable {
 		    public int hp = 1500;
 		    public int atk = 175;
 		            
+		    public void attack() {
+		        // 0.0以上1.0未満の乱数
+		        if (Math.random() < 0.4) {
+		            uniqueAttack();
+		        } else {
+		            normalAttack();
+		        }
+		    }
+		    
+		    // ノーマルアタック
 		    public void normalAttack() {
-		        System.out.println("Durahanの攻撃！");
+		        player.hp -= 175;
+		        System.out.println("Durahanの通常攻撃！");
+		    }
+		    
+		    // 固有アタック
+		    public void uniqueAttack() {
+		        player.hp -= 150;
+		        player.Applystatus("paralysis");
+		        uniqueAttack2();
+		        System.out.println("Durahanの帝国流剣術・シュネルシュベールト！");
+		    }
+		    
+		    public void uniqueAttack2() {
+		        player.hp -= 150;
 		    }
 		
 		    public List<Element> getWeaknesses() {
@@ -679,8 +1036,30 @@ public class PictureBook_MonsterController implements Initializable {
 		    public int hp = 2500;
 		    public int atk = 250;
 		            
+		    public void attack() {
+		        // 0.0以上1.0未満の乱数
+		        if (Math.random() < 0.3) {
+		            uniqueAttack();
+		        } else {
+		            normalAttack();
+		        }
+		    }
+		    
+		    // ノーマルアタック
 		    public void normalAttack() {
-		        System.out.println("アークデーモンの攻撃！");
+		        player.hp -= 250;
+		        System.out.println("Archdemonの通常攻撃！");
+		    }
+		    
+		    // 固有アタック
+		    public void uniqueAttack() {
+		        player.hp -= 50;
+		        player.Applystatus("burn");
+		        player.Applystatus("palarysis");
+		        player.Applystatus("fleeze");
+		        player.Applystatus("poison");
+		        player.Applystatus("sleep");
+		        System.out.println("Archdemonの絶望の魔眼！");
 		    }
 		
 		    public List<Element> getWeaknesses() {
@@ -710,8 +1089,25 @@ public class PictureBook_MonsterController implements Initializable {
 		    public int hp = ????;
 		    public int atk = ???;
 		            
+		    public void attack() {
+		        // 0.0以上1.0未満の乱数
+		        if (Math.random() < 0.4) {
+		            uniqueAttack();
+		        } else {
+		            normalAttack();
+		        }
+		    }
+		    
+		    // ノーマルアタック
 		    public void normalAttack() {
-		        System.out.println("????????の攻撃！");
+		        player.hp -= ???;
+		        System.out.println("????????????の通常攻撃！");
+		    }
+		    
+		    // 固有アタック
+		    public void uniqueAttack() {
+		        player.hp -= ???;
+		        player.Applystatus("????");
 		    }
 		
 		    public List<Element> getWeaknesses() {

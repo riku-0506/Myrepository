@@ -14,6 +14,7 @@ import javafx.animation.SequentialTransition;
 import javafx.animation.Timeline;
 import javafx.animation.TranslateTransition;
 import javafx.application.Platform;
+import javafx.geometry.Pos;
 import javafx.scene.Node;
 import javafx.scene.control.Label;
 import javafx.scene.control.ProgressBar;
@@ -22,6 +23,8 @@ import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
+import javafx.scene.layout.StackPane;
+import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
 import javafx.util.Duration;
@@ -37,8 +40,7 @@ public class BattleAnimationManager {
             Character enemy,
             ProgressBar hpBar,
             Label nameLabel,
-            Label statusLabel,
-            HBox enemyNameStatus,
+            HBox status,
             Runnable onFinished) {
 
         System.out.println(">>> playDamageAnimation invoked for " + enemy.getName());
@@ -117,8 +119,7 @@ public class BattleAnimationManager {
                     enemyNode.setOnMouseClicked(null);
                     if (hpBar != null) hpBar.setVisible(false);
                     if (nameLabel != null) { nameLabel.setText(""); nameLabel.setVisible(false); }
-                    if (statusLabel != null) { statusLabel.setText(""); statusLabel.setVisible(false); }
-                    if (enemyNameStatus != null) enemyNameStatus.setVisible(false);
+                    if (status != null) { status.getChildren().clear(); status.setVisible(false); }
                 }
 
                 // ★ 必ず最後に呼ぶ（ここだけで十分）
@@ -167,7 +168,7 @@ public class BattleAnimationManager {
                 Map.entry(Enemy.AttackType.BOSS2, "images/effect/boss2.gif"),
                 Map.entry(Enemy.AttackType.BOSS3, "images/effect/boss3.gif"),
                 Map.entry(Enemy.AttackType.BOSS4, "images/effect/boss4.gif"),
-                Map.entry(Enemy.AttackType.ONI, "images/effect/Oni_attack (2).gif"),
+                Map.entry(Enemy.AttackType.ONI, "images/effect/Oni_attack.gif"),
                 Map.entry(Enemy.AttackType.THUNDERBIRD, "images/effect/Thunderbird_attack.gif"),
                 Map.entry(Enemy.AttackType.GHOSTSHIPCAPTAIN, "images/effect/GhostShipCaptain_attack.gif"),
                 Map.entry(Enemy.AttackType.EXBOSS1, "images/effect/Exboss1.gif"),
@@ -183,8 +184,8 @@ public class BattleAnimationManager {
                 Map.entry(Enemy.AttackType.BOSS1, 0.6),
                 Map.entry(Enemy.AttackType.BOSS2, 0.85),
                 Map.entry(Enemy.AttackType.BOSS3, 2.0),
-                Map.entry(Enemy.AttackType.BOSS4, 1.2),
-                Map.entry(Enemy.AttackType.ONI, 1.2),
+                Map.entry(Enemy.AttackType.BOSS4, 1.0),
+                Map.entry(Enemy.AttackType.ONI, 1.12),
                 Map.entry(Enemy.AttackType.THUNDERBIRD, 0.9),
                 Map.entry(Enemy.AttackType.GHOSTSHIPCAPTAIN, 0.8),
                 Map.entry(Enemy.AttackType.EXBOSS1, 1.0),
@@ -196,93 +197,139 @@ public class BattleAnimationManager {
      * 敵攻撃アニメーション（ジャンプ → 中央エフェクト）
      * battleRoot は AnchorPane や Pane など「バトル画面の最上位コンテナ」
      */
-    public static void playEnemyAttack(
-            Node enemyNode,
-            Pane battleRoot,
-            Enemy.AttackType type,
-            Runnable onFinished
-    ) {
+	    public static void playEnemyAttack(
+	            Node enemyNode,
+	            Pane battleRoot,
+	            Enemy.AttackType type,
+	            Runnable onFinished
+	    ) {
 
-        // ▼ 敵ジャンプ
-        TranslateTransition up = new TranslateTransition(Duration.seconds(0.2), enemyNode);
-        up.setByY(-30);
-
-        TranslateTransition down = new TranslateTransition(Duration.seconds(0.2), enemyNode);
-        down.setByY(30);
-
-        SequentialTransition jump = new SequentialTransition(up, down);
-
-        jump.setOnFinished(e -> {
-
-            SEPlayer.play("戦闘SE/敵攻撃.mp3");
-
-            // ▼ 中央エフェクト（攻撃本体） → 即開始
-            playCenterEffect(battleRoot, type, () -> {
-            	
-            });
-
-            // ▼ ダメージリアクションだけ遅延して開始
-            PauseTransition damageDelay = new PauseTransition(Duration.seconds(0.25)); // ← 調整ポイント
-            damageDelay.setOnFinished(ev -> {
-            	
-                // ひび割れ演出
-                playScreenCrackEffect(battleRoot, () -> {
-
-                    // 最後に onFinished
-                    if (onFinished != null) onFinished.run();
-                });
-            });
-
-            damageDelay.play();
-        });
-
-
-        jump.play();
-    }
+	        // ▼ 敵ジャンプ
+	        TranslateTransition up = new TranslateTransition(Duration.seconds(0.2), enemyNode);
+	        up.setByY(-30);
+	
+	        TranslateTransition down = new TranslateTransition(Duration.seconds(0.2), enemyNode);
+	        down.setByY(30);
+	
+	        SequentialTransition jump = new SequentialTransition(up, down);
+	
+	        jump.setOnFinished(e -> {
+	
+	            SEPlayer.play("戦闘SE/敵攻撃.mp3");
+	
+	            // ▼ 中央エフェクト（攻撃本体） → 即開始
+	            playCenterEffect(battleRoot, type, () -> {
+	            	
+	            });
+	
+	            // ▼ ダメージリアクションだけ遅延して開始
+	            PauseTransition damageDelay = new PauseTransition(Duration.seconds(0.25)); // ← 調整ポイント
+	            damageDelay.setOnFinished(ev -> {
+	            	
+	                // ひび割れ演出
+	                playScreenCrackEffect(battleRoot, () -> {
+	
+	                    // 最後に onFinished
+	                    if (onFinished != null) onFinished.run();
+	                });
+	            });
+	
+	            damageDelay.play();
+	        });
+	
+	
+	        jump.play();
+	    }
 
 
     /**
      * 中央エフェクト（必要な時だけ追加 → 終わったら削除）
      */
-    private static void playCenterEffect(
-            Pane battleRoot,
-            Enemy.AttackType type,
-            Runnable onFinished
-    ) {
-        String path = EFFECT_MAP.get(type);
-        if (path == null) {
-            if (onFinished != null) onFinished.run();
-            return;
-        }
+	    private static void playCenterEffect(
+	            Pane battleRoot,
+	            Enemy.AttackType type,
+	            Runnable onFinished
+	    ) {
+	        String path = EFFECT_MAP.get(type);
+	        if (path == null) {
+	            System.out.println("[Effect] パスなし → スキップ");
+	            if (onFinished != null) onFinished.run();
+	            return;
+	        }
 
-        Image image = new Image(BattleAnimationManager.class.getResource(path).toExternalForm());
-        ImageView effectView = new ImageView(image);
+	        Image image = new Image(BattleAnimationManager.class.getResource(path).toExternalForm());
+	        ImageView effectView = new ImageView(image);
 
-        effectView.setFitWidth(700);
-        effectView.setFitHeight(700);
-        effectView.setPreserveRatio(true);
+	        effectView.setFitWidth(700);
+	        effectView.setFitHeight(700);
+	        effectView.setPreserveRatio(true);
 
-        Platform.runLater(() -> {
-            double centerX = (battleRoot.getWidth() - effectView.getFitWidth()) / 2;
-            double centerY = (battleRoot.getHeight() - effectView.getFitHeight()) / 2;
-            effectView.setLayoutX(centerX);
-            effectView.setLayoutY(centerY);
-        });
+	        Platform.runLater(() -> {
+	            double centerX = (battleRoot.getWidth() - effectView.getFitWidth()) / 2;
+	            double centerY = (battleRoot.getHeight() - effectView.getFitHeight()) / 2;
+	            effectView.setLayoutX(centerX);
+	            effectView.setLayoutY(centerY);
+	        });
 
-        battleRoot.getChildren().add(effectView);
-        effectView.toFront();
+	        battleRoot.getChildren().add(effectView);
+	        effectView.toFront();
 
-        // ★ 攻撃タイプごとのエフェクト時間を使う
-        double duration = EFFECT_DURATION_MAP.getOrDefault(type, 0.6);
+	        double duration = EFFECT_DURATION_MAP.getOrDefault(type, 0.6);
 
-        PauseTransition pause = new PauseTransition(Duration.seconds(duration));
-        pause.setOnFinished(e -> {
-            battleRoot.getChildren().remove(effectView);
-            if (onFinished != null) onFinished.run();
-        });
+	        // ★ cleanup を一箇所にまとめる（複数回呼ばれても安全）
+	        Runnable cleanup = () -> {
+	            System.out.println("[Effect] cleanup 開始");
 
-        pause.play();
-    }
+	            // ① 強制的に非表示
+	            effectView.setOpacity(0);
+
+	            // ② remove（1回目）
+	            boolean removed1 = battleRoot.getChildren().remove(effectView);
+	            System.out.println("[Effect] remove(1回目) → " + removed1);
+
+	            // ③ レイアウト強制更新（キャッシュ破棄）
+	            battleRoot.applyCss();
+	            battleRoot.layout();
+
+	            // ④ 1フレーム後に再度 remove（最も重要）
+	            Platform.runLater(() -> {
+	                boolean removed2 = battleRoot.getChildren().remove(effectView);
+	                System.out.println("[Effect] remove(2回目) → " + removed2);
+
+	                // ⑤ 念のため残骸スキャン
+	                int before = battleRoot.getChildren().size();
+	                battleRoot.getChildren().removeIf(node ->
+	                        node instanceof ImageView iv &&
+	                        iv.getImage() == image
+	                );
+	                int after = battleRoot.getChildren().size();
+	                System.out.println("[Effect] 残骸スキャン → " + (before - after) + " 個削除");
+
+	                System.out.println("[Effect] cleanup 完了");
+
+	                if (onFinished != null) onFinished.run();
+	            });
+	        };
+
+
+	        PauseTransition pause = new PauseTransition(Duration.seconds(duration));
+	        pause.setOnFinished(e -> {
+	            System.out.println("[Effect] PauseTransition 完了 → cleanup 実行");
+	            cleanup.run();
+	        });
+	        pause.play();
+
+	        // ★ シーン切り替え・ノード破棄時にも cleanup を強制実行
+	        battleRoot.sceneProperty().addListener((obs, oldScene, newScene) -> {
+	            if (newScene == null) {
+	                System.out.println("[Effect] scene = null → cleanup 強制実行");
+	                cleanup.run();
+	            }
+	        });
+	    }
+
+
+
 
     
     public static void playScreenCrackEffect(
@@ -422,69 +469,110 @@ public class BattleAnimationManager {
     
     // ゲームオーバー演出
     public static void showGameOver(AnchorPane root) {
+
+        // ★ オーバーレイ用 StackPane（中央配置が自動）
+        StackPane overlay = new StackPane();
+        overlay.setPrefSize(root.getWidth(), root.getHeight());
+
         Rectangle blackout = new Rectangle(root.getWidth(), root.getHeight(), Color.BLACK);
         blackout.setOpacity(0);
-        root.getChildren().add(blackout);
-
-        FadeTransition fade = new FadeTransition(Duration.seconds(1.5), blackout);
-        fade.setToValue(0.6);
-        fade.play();
 
         Label gameOverLabel = new Label("GAME OVER");
         gameOverLabel.setTextFill(Color.RED);
         gameOverLabel.setStyle("-fx-font-size: 64px; -fx-font-weight: bold;");
         gameOverLabel.setOpacity(0);
 
-        root.getChildren().add(gameOverLabel);
+        // ★ クリック案内ラベル
+        Label clickLabel = new Label("画面をクリックして戻る");
+        clickLabel.setTextFill(Color.WHITE);
+        clickLabel.setStyle("-fx-font-size: 24px;");
+        clickLabel.setOpacity(0);
 
-        // ★ 中央に配置（バインドではなく手動）
-        Platform.runLater(() -> {
-            gameOverLabel.setLayoutX((root.getWidth() - gameOverLabel.getWidth()) / 2);
-            gameOverLabel.setLayoutY((root.getHeight() - gameOverLabel.getHeight()) / 2);
-        });
+        // ★ 縦に並べる（中央揃え）
+        VBox vbox = new VBox(40); // GAME OVER と案内の間隔
+        vbox.setAlignment(Pos.CENTER);
+        vbox.getChildren().addAll(gameOverLabel, clickLabel);
 
+        overlay.getChildren().addAll(blackout, vbox);
+        root.getChildren().add(overlay);
+
+        // 黒フェード
+        FadeTransition fade = new FadeTransition(Duration.seconds(1.5), blackout);
+        fade.setToValue(0.6);
+        fade.play();
+
+        // GAME OVER フェード
         FadeTransition labelFade = new FadeTransition(Duration.seconds(1.5), gameOverLabel);
         labelFade.setToValue(1.0);
         labelFade.play();
+
+        // 案内ラベルは少し遅れてフェードイン
+        FadeTransition clickFade = new FadeTransition(Duration.seconds(1.5), clickLabel);
+        clickFade.setDelay(Duration.seconds(1.5));
+        clickFade.setToValue(1.0);
+        clickFade.play();
     }
     
 
     // ステージクリア演出
     public static void showStageClear(AnchorPane root, Runnable onFinished) {
-        Rectangle overlay = new Rectangle(root.getWidth(), root.getHeight(), Color.BLACK);
-        overlay.setOpacity(0);
-        root.getChildren().add(overlay);
 
+        // ★ オーバーレイ用 StackPane（中央配置が自動）
+        StackPane overlay = new StackPane();
+        overlay.setPrefSize(root.getWidth(), root.getHeight());
+
+        // 背景の黒フェード
+        Rectangle blackout = new Rectangle(root.getWidth(), root.getHeight(), Color.BLACK);
+        blackout.setOpacity(0);
+
+        // Stage Clear ラベル
         Label clearLabel = new Label("Stage Clear!");
         clearLabel.setTextFill(Color.YELLOW);
         clearLabel.setStyle("-fx-font-size: 48px; -fx-font-weight: bold;");
         clearLabel.setOpacity(0);
-        root.getChildren().add(clearLabel);
 
-        // ★ 中央に配置（バインドではなく手動）
-        Platform.runLater(() -> {
-            clearLabel.setLayoutX((root.getWidth() - clearLabel.getWidth()) / 2);
-            clearLabel.setLayoutY((root.getHeight() - clearLabel.getHeight()) / 2);
-        });
+        // ★ クリック案内ラベル
+        Label clickLabel = new Label("画面をクリックして進む");
+        clickLabel.setTextFill(Color.WHITE);
+        clickLabel.setStyle("-fx-font-size: 24px;");
+        clickLabel.setOpacity(0);
 
-        FadeTransition fadeIn = new FadeTransition(Duration.seconds(1), overlay);
+        // ★ 縦に並べる（中央揃え）
+        VBox vbox = new VBox(40); // ラベル間の間隔
+        vbox.setAlignment(Pos.CENTER);
+        vbox.getChildren().addAll(clearLabel, clickLabel);
+
+        overlay.getChildren().addAll(blackout, vbox);
+        root.getChildren().add(overlay);
+
+        // 黒フェード
+        FadeTransition fadeIn = new FadeTransition(Duration.seconds(1), blackout);
         fadeIn.setToValue(0.6);
 
+        // Stage Clear フェード
         FadeTransition labelFade = new FadeTransition(Duration.seconds(1), clearLabel);
         labelFade.setToValue(1);
 
+        // Stage Clear 拡大演出
         ScaleTransition labelScale = new ScaleTransition(Duration.seconds(1), clearLabel);
         labelScale.setFromX(0.5);
         labelScale.setToX(1);
         labelScale.setFromY(0.5);
         labelScale.setToY(1);
 
-        ParallelTransition appear = new ParallelTransition(labelFade, labelScale);
+        // クリック案内は少し遅れてフェードイン
+        FadeTransition clickFade = new FadeTransition(Duration.seconds(1), clickLabel);
+        clickFade.setDelay(Duration.seconds(1));
+        clickFade.setToValue(1);
 
-        SequentialTransition sequence = new SequentialTransition(fadeIn, appear);
+        // まとめて再生
+        ParallelTransition appear = new ParallelTransition(labelFade, labelScale);
+        SequentialTransition sequence = new SequentialTransition(fadeIn, appear, clickFade);
+
         sequence.setOnFinished(e -> {
             if (onFinished != null) onFinished.run();
         });
+
         sequence.play();
     }
     

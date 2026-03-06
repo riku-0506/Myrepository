@@ -42,5 +42,10 @@
          </font>
       </Text>
       <Button fx:id="OptionButton" layoutX="564.0" layoutY="613.0" mnemonicParsing="false" onAction="#Option" opacity="0.0" prefHeight="79.0" prefWidth="164.0" />
+      <Text fill="WHITE" layoutX="1183.0" layoutY="704.0" stroke="WHITE" strokeType="INSIDE" strokeWidth="0.0" styleClass="chihaya" text="ver2.0">
+         <font>
+            <Font name="System Bold" size="30.0" />
+         </font>
+      </Text>
    </children>
 </AnchorPane>

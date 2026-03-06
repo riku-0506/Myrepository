@@ -43,7 +43,7 @@ public class PictureBook_AbnormalityController implements Initializable {
         """,
         """
 		public void applyBurnStatus(MagicTarget target, boolean isPlayer) {
-		    target.addStatusEffect("やけど");
+		    target.addStatusEffect("burn");
 		
 		    if (isPlayer) {
 		        target.setMaxHPModifier(0.9);
@@ -71,7 +71,7 @@ public class PictureBook_AbnormalityController implements Initializable {
         """,
         """
 		public void applyShockStatus(MagicTarget target) {
-		    target.addStatusEffect("感電");
+		    target.addStatusEffect("paralysis");
 		    target.applyBuff("攻撃力", 0.7, 3);
 		    System.out.printf
 		    ("%s は感電し、攻撃力が30%%低下しました！", target.getName());
@@ -86,7 +86,7 @@ public class PictureBook_AbnormalityController implements Initializable {
         """,
         """
 		public void applyFrostbiteStatus(MagicTarget target) {
-		    target.addStatusEffect("凍傷");
+		    target.addStatusEffect("fleeze");
 		    target.applyBuff("被ダメージ倍率", 1.3, 3);
 		    target.applyBuff("防御力", 0.9, 3);
 		    System.out.printf("%s は凍傷により防御力が低下し、
@@ -100,7 +100,7 @@ public class PictureBook_AbnormalityController implements Initializable {
         """,
         """
 		public void applyPoisonStatus(MagicTarget target) {
-		    target.addStatusEffect("毒");
+		    target.addStatusEffect("poison");
 		    System.out.printf("%s に毒状態を付与しました！
 		    		     毎ターンダメージを受けます。", target.getName());
 		}
@@ -114,7 +114,7 @@ public class PictureBook_AbnormalityController implements Initializable {
         """,
         """
 		public void applySleepStatus(MagicTarget target) {
-		    target.addStatusEffect("眠り");
+		    target.addStatusEffect("sleep");
 		    target.applyBuff("行動不能", 1.0, 1);
 		    target.applyBuff("被ダメージ倍率", 1.5, 1);
 		    System.out.printf("%s は眠ってしまった！

@@ -16,8 +16,8 @@ public class ItemFactory {
 
     private static ItemCategory getCategoryById(int id) {
         return switch (id) {
-            case 1, 2, 3 -> ItemCategory.HEAL_HP;
-            case 4, 5 -> ItemCategory.FULL_RECOVERY;
+            case 1, 2, 3, 4 -> ItemCategory.HEAL_HP;
+            case 5 -> ItemCategory.FULL_RECOVERY;
             case 6, 7, 8 -> ItemCategory.HEAL_MP;
             case 9, 10, 11, 12, 13 -> ItemCategory.STATUS_RECOVERY;
             case 14, 15, 16, 17 -> ItemCategory.BUFF;

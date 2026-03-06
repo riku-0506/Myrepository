@@ -158,7 +158,7 @@ public class StageSelectionController {
 	@FXML
     void Undo(MouseEvent event) {
     	SEPlayer.play("イベント/click.mp3");
-    	SceneManager.goBack();
+    	SceneManager.changeScene("Menu.fxml");
     }
     
     @FXML

@@ -49,6 +49,8 @@ public class Character {
     private boolean sleepFlag;      // 1.5倍判定用
     private boolean sleepSkipTurn;  // 行動不能用
     private boolean sleepUI = false;
+    private boolean justWokeUp = false;//再睡眠不可
+
 
 
 
@@ -63,7 +65,7 @@ public class Character {
 
     // UI表示用スロットID
     private int displaySlotId = -1;
-    
+
     private CharacterDAO characterDAO;{
 	    try {
 	        Connection conn = DBManager.getConnection();
@@ -245,9 +247,10 @@ public class Character {
     
  // バフを付与（重複制御付き・完全一致判定あり）
     public void applyBuff(UnifiedBuff newBuff) {
-
+    	System.out.println("applyBuff実行");
         // ★ 一回限りのバフは常に追加（重複OK）
         if (newBuff.isSingleUse()) {
+        	System.out.println("新しいバフ:" + newBuff.getIconName());
             activeBuffs.add(newBuff);
             return;
         }
@@ -272,6 +275,7 @@ public class Character {
 
         // ★ 完全一致でなければ新規追加（modifier が違えば重複OK）
         if (!updated) {
+        	System.out.println("新しいバフ:" + newBuff.getIconName());
             activeBuffs.add(newBuff);
         }
     }
@@ -279,7 +283,10 @@ public class Character {
 
     // 毎ターンバフを更新（残りターン減少・期限切れ削除）
     public void updateBuffsEachTurn() {
-        for (UnifiedBuff buff : activeBuffs) buff.tick();
+        for (UnifiedBuff buff : activeBuffs) {
+        	System.out.println("バフ名:" + buff.getIconName()+ "|残りターン数:" + buff.getDuration());
+        	buff.tick();
+        }
         activeBuffs.removeIf(UnifiedBuff::isExpired);
         if (isPlayer) {
             StageController controller = StageController.getInstance();
@@ -300,6 +307,7 @@ public class Character {
         // 属性ボーナス
         if (element == effect.getElement()) {
             chance += 0.10;
+            System.out.println("属性ボーナス0.1:" + element);
         }
 
         // 特定状態異常確率UP
@@ -318,7 +326,7 @@ public class Character {
         }
 
         chance = Math.min(1.0, chance);
-
+        
         boolean success = Math.random() < chance;
 
         if (success) {
@@ -328,8 +336,7 @@ public class Character {
 	                sleepFlag = true;      // 1.5倍判定ON
 	                sleepSkipTurn = true;  // 次の敵ターン行動不能
 	                sleepUI = true;        // UI表示ON
-
-                // ★ 睡眠は statusTurns に入れない
+	                statusTurns.put(effect, 1);
                 return true;
             }
 
@@ -374,19 +381,30 @@ public class Character {
         	
 
             // ★ ここを先に判定する（最重要）
-            if (effect == StatusEffect.SLEEP) {
-            	if(!isSleeping()) {
-	                sleepFlag = true;      // 1.5倍判定ON
-	                sleepSkipTurn = true;  // 次の敵ターン行動不能
-	                sleepUI = true;        // UI表示ON
-	                statusTurns.put(effect, 1);
-            	}
-                // ★ 睡眠は statusTurns に入れない
-                return true;
-                
-            }
+        	if (effect == StatusEffect.SLEEP) {
 
-            // ★ 睡眠以外の状態異常だけ duration を入れる
+        	    // ★ 解除直後は睡眠無効
+        	    if (justWokeUp) {
+        	        System.out.println("解除直後なので睡眠無効");
+        	        return false;
+        	    }
+
+        	    // ★ 既に睡眠中なら延長しない
+        	    if (isSleeping()) {
+        	        System.out.println("既に睡眠なのでスキップ");
+        	        return false;
+        	    }
+
+        	    // ★ 睡眠付与
+        	    sleepFlag = true;
+        	    sleepSkipTurn = true;
+        	    sleepUI = true;
+        	    statusTurns.put(effect, 2);
+        	    return true;
+        	}
+
+
+            // ★ 睡眠以外の状態異常
             int duration = attacker.isPlayer()
                 ? effect.getEnemyDuration()
                 : effect.getPlayerDuration();
@@ -399,6 +417,10 @@ public class Character {
         return false;
     }
     
+    public void setStatusEffect(StatusEffect effect, int duration) {
+    	statusTurns.put(effect, duration);
+    };
+    
     public List<String> getActiveStatusEffectIcons() {
 
         // 並び順の優先リスト
@@ -410,31 +432,11 @@ public class Character {
             StatusEffect.SLEEP     // 睡眠
         );
 
-        // ★ 現在の statusTurns の中身をログ出力
-        System.out.println("【状態異常チェック】statusTurns の中身:");
-        if (statusTurns.isEmpty()) {
-            System.out.println(" → 現在付与されている状態異常はありません");
-        } else {
-            for (Map.Entry<StatusEffect, Integer> entry : statusTurns.entrySet()) {
-                System.out.println(" - " + entry.getKey().name() + "（残り " + entry.getValue() + " ターン）");
-            }
-        }
-
         // ★ 並び順に従ってアイコンパスを作成
         List<String> result = order.stream()
                 .filter(statusTurns::containsKey)
                 .map(StatusEffect::getIconPath)
                 .toList();
-
-        // ★ 実際に返すアイコンパスをログ出力
-        System.out.println("【状態異常アイコンパス】");
-        if (result.isEmpty()) {
-            System.out.println(" → 表示するアイコンはありません");
-        } else {
-            for (String path : result) {
-                System.out.println(" - " + path);
-            }
-        }
 
         return result;
     }
@@ -474,8 +476,9 @@ public class Character {
 
 
     // ターン開始時に状態異常の効果を適用
- // ターン開始時に呼ぶ（毒・やけどダメージ、ログなど）
     public void applyStatusEffectsAtTurnStart() {
+    	
+    	justWokeUp = false;
 
         // コピーして走査（中で解除が起きても安全にするため）
         for (StatusEffect effect : new ArrayList<>(statusTurns.keySet())) {
@@ -510,7 +513,7 @@ public class Character {
                 }
 
                 case SLEEP -> {
-                    log(name + "は眠っている！");
+					System.out.println("睡眠中");
                 }
             }
             
@@ -590,8 +593,9 @@ public class Character {
     }
 
     public void clearSleep() {
-        sleepFlag = false;
+    	sleepFlag = false;
         sleepSkipTurn = false;
+        sleepUI = false;
         statusTurns.remove(StatusEffect.SLEEP);
     }
 
@@ -613,28 +617,8 @@ public class Character {
     public void setDamageTakenMultiplier(double multiplier) {
         this.damageTakenMultiplier = multiplier;
     }
-
-
-    //状態異常を文字列で取得
-    public String getStatusEffectSummary() {
-
-        String text = statusTurns.keySet().stream()
-            .map(StatusEffect::getLabel)
-            .reduce((a, b) -> a + " / " + b)
-            .orElse("");
-
-        // ★ sleepUI が true なら必ず睡眠を表示
-        if (sleepUI) {
-            if (!text.contains("睡眠")) {
-                if (text.isEmpty()) text = "睡眠";
-                else text += " / 睡眠";
-            }
-        }
-
-        return text;
-    }
-
     
+ 
     // HPを最大値まで回復
     public void setHPToMax() {
         this.hp = this.maxHP;
@@ -693,9 +677,16 @@ public class Character {
         for (StatusEffect effect : toRemove) {
             statusTurns.remove(effect);
             
-            log(name + "の" + effect.getLabel() + "が解除された！");
+            if ("睡眠".equals(effect.getLabel())) {
+                clearSleep();
+                justWokeUp = true;
+                log(name + "が目を覚ました！");
+            } else {
+                log(name + "の" + effect.getLabel() + "が解除された！");
+            }
 
-            // ✅ 解除時 UI 更新（敵のみ）
+
+            // ✅ 解除時 UI 更新
             if (!isPlayer) {
                 StageController controller = StageController.getInstance();
                 if (controller != null) {
@@ -711,7 +702,7 @@ public class Character {
         }
         
     }
-
+    
     
     //状態異常の強制付与
     public void applyStatusEffect(StatusEffect effect) {

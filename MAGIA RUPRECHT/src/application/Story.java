@@ -11,7 +11,8 @@ public class Story {
 
         try {
         	double BGMVol = BGMPlayer.getCurrentVolume(); //音量の値を取る
-        	double SEVol = SEPlayer.getCurrentVolume(); //SEの値を取る（現在未使用）
+        	BGMPlayer.stop();
+        	
         	
             // ScenarioPlayer に既存 Scene を渡す
             ScenarioPlayer player = new ScenarioPlayer(stage, currentScene, "chapter" + ScenarioNumber, BGMVol);

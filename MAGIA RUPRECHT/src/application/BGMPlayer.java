@@ -27,7 +27,7 @@ public class BGMPlayer {
                 fadeInTimeline = null;
             }
 
-            URL url = BGMPlayer.class.getResource("/sounds/BGM2/" + filename);
+            URL url = BGMPlayer.class.getResource("/resources/sounds/BGM2/" + filename);
             System.out.println("[BGMPlayer.play] resolved URL = " + url);
 
             if (url == null) {

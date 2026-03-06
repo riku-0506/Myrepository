@@ -228,7 +228,7 @@ public class MagicEffectRegistry {
         // 34：状態異常回復
         // ============================
         registry.put(34, magic -> {
-            magic.setEffectType(PrimitiveMagic.EffectType.STATUS);
+            magic.setEffectType(PrimitiveMagic.EffectType.SPECIAL);
             magic.setStatusEffect(null);
         });
 
@@ -237,42 +237,46 @@ public class MagicEffectRegistry {
 	     // 35：バーサク
 	     // 自身：攻撃力1.5倍、防御力20%低下（被ダメ1.2倍）
 	     // ============================
-	     registry.put(35, magic -> {
-	         magic.setEffectType(PrimitiveMagic.EffectType.SPECIAL);
-	
-	         // 攻撃UP
-	         magic.addBuffEffect(UnifiedBuff.Type.ATTACK, 1.5, 3, false, null);
-	
-	         // 防御DOWN（被ダメUP）
-	         magic.addBuffEffect(UnifiedBuff.Type.DEFENSE, -0.20, 3, false, null);
-	     });
+        registry.put(35, magic -> {
+            magic.setEffectType(PrimitiveMagic.EffectType.SPECIAL);
+
+            // SPECIAL 自体
+            magic.addBuffEffect(UnifiedBuff.Type.SPECIAL, 1, 3, false, null);
+
+            // 内部バフ（順番変更後）
+            magic.addSpecialInnerBuff(UnifiedBuff.Type.ATTACK, 1.5, 3, null, false,true);
+            magic.addSpecialInnerBuff(UnifiedBuff.Type.DEFENSE, -0.20, 3, null, false,true);
+        });
+
 	
 	
 	     // ============================
 	     // 36：フォトレス
 	     // 自身：攻撃力0.8倍、防御力30%上昇（被ダメ0.7倍）
 	     // ============================
-	     registry.put(36, magic -> {
-	         magic.setEffectType(PrimitiveMagic.EffectType.SPECIAL);
-	
-	         // 攻撃DOWN
-	         magic.addBuffEffect(UnifiedBuff.Type.ATTACK, 0.8, 3, false, null);
-	
-	         // 防御UP（被ダメ軽減）
-	         magic.addBuffEffect(UnifiedBuff.Type.DEFENSE, 0.30, 3, false, null);
-	     });
+        registry.put(36, magic -> {
+            magic.setEffectType(PrimitiveMagic.EffectType.SPECIAL);
+
+            magic.addBuffEffect(UnifiedBuff.Type.SPECIAL, 2, 3, false, null);
+
+            magic.addSpecialInnerBuff(UnifiedBuff.Type.ATTACK, 0.8, 3, null, false,true);
+            magic.addSpecialInnerBuff(UnifiedBuff.Type.DEFENSE, 0.30, 3, null, false,true);
+        });
+
 	
 	
 	     // ============================
 	     // 37：ケイオスフィルド
 	     // 敵味方：状態異常確率 +50%
 	     // ============================
-	     registry.put(37, magic -> {
-	         magic.setEffectType(PrimitiveMagic.EffectType.SPECIAL);
-	
-	         // 状態異常確率UP（敵味方両方）
-	         magic.addBuffEffect(UnifiedBuff.Type.STATUS_CHANCE_UP, 0.5, 3, false, null);
-	     });
+        registry.put(37, magic -> {
+            magic.setEffectType(PrimitiveMagic.EffectType.SPECIAL);
+
+            magic.addBuffEffect(UnifiedBuff.Type.SPECIAL, 3, 3, false, null);
+
+            magic.addSpecialInnerBuff(UnifiedBuff.Type.STATUS_CHANCE_UP, 0.5, 3, null, false,true);
+        });
+
 	
 	
 	     // ============================
@@ -280,18 +284,21 @@ public class MagicEffectRegistry {
 	     // 自身：攻撃力1.5倍、防御力30%低下
 	     // 敵：全属性耐性30%低下
 	     // ============================
-	     registry.put(38, magic -> {
-	         magic.setEffectType(PrimitiveMagic.EffectType.SPECIAL);
-	
-	         // 自身：攻撃UP
-	         magic.addBuffEffect(UnifiedBuff.Type.ATTACK, 1.5, 3, false, null);
-	
-	         // 自身：防御DOWN（被ダメUP）
-	         magic.addBuffEffect(UnifiedBuff.Type.DEFENSE, -0.30, 3, false, null);
-	
-	         // 敵：全属性耐性DOWN
-	         magic.addBuffEffect(UnifiedBuff.Type.ELEMENT_RESIST_DOWN, 0.30, 3, false, null);
-	     });
+        registry.put(38, magic -> {
+            magic.setEffectType(PrimitiveMagic.EffectType.SPECIAL);
+
+            magic.addBuffEffect(UnifiedBuff.Type.SPECIAL, 4, 3, false, null);
+
+            magic.addSpecialInnerBuff(UnifiedBuff.Type.ATTACK, 1.5, 3, null, false,true);
+            magic.addSpecialInnerBuff(UnifiedBuff.Type.DEFENSE, -0.30, 3, null, false,true);
+
+            // 敵側の属性耐性DOWNも内部バフ扱い
+            magic.addSpecialInnerBuff(UnifiedBuff.Type.ELEMENT_RESIST_DOWN, 0.3, 3, "火", false,true);
+            magic.addSpecialInnerBuff(UnifiedBuff.Type.ELEMENT_RESIST_DOWN, 0.3, 3, "雷", false,true);
+            magic.addSpecialInnerBuff(UnifiedBuff.Type.ELEMENT_RESIST_DOWN, 0.3, 3, "氷", false,true);
+            magic.addSpecialInnerBuff(UnifiedBuff.Type.ELEMENT_RESIST_DOWN, 0.3, 3, "聖", false,true);
+            ;
+        });
 
     }
 

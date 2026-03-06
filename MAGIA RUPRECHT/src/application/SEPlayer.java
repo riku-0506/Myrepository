@@ -8,7 +8,7 @@ import javafx.scene.media.AudioClip;
 
 public class SEPlayer {
 
-    private static final String BASE_PATH = "/sounds/BGM2/";
+    private static final String BASE_PATH = "/resources/sounds/BGM2/";
 
     private static double currentVolume = 0.6;
 

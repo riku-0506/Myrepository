@@ -31,6 +31,8 @@ public class MenuController implements Initializable {
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
+    	
+    	SceneManager.clearHistory();
         // メニュー画面用BGMを再生
     	BGMPlayer.play("拠点/maou_bgm_fantasy10.mp3");
     	applyLock();
@@ -38,7 +40,7 @@ public class MenuController implements Initializable {
     	if(clearStageId > 0) {
     		System.out.println("初クリアのステージID" + clearStageId);
     		try {
-    	        FXMLLoader loader = new FXMLLoader(getClass().getResource("MenuDialog.fxml"));
+    	        FXMLLoader loader = new FXMLLoader(getClass().getResource("MenuDialog" + clearStageId +".fxml"));
     	        DialogPane dialogPane = loader.load();
 
     	        Dialog<ButtonType> dialog = new Dialog<>();
@@ -49,12 +51,13 @@ public class MenuController implements Initializable {
 //    	        dialog.getDialogPane().getButtonTypes().add(ButtonType.OK);
 
     	        dialog.showAndWait();
+    	        
 
     	    } catch (Exception e) {
     	        e.printStackTrace();
-    	        clearStageId = 0;
     	    }
     	}
+    	ResultController.clearStageId = 0;
     	
     }
 
